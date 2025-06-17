@@ -1,6 +1,7 @@
 import React, { useRef, useState, useEffect } from 'react';
 // Import original Lucide React icons for the features
 import { ShieldCheck, Map, Clock, UserCheck } from 'lucide-react';
+import teamImage from '../assets/team.png'; // IMP: Import your local image here
 
 export const WhyChooseUsSection = () => {
   const sectionRef = useRef(null);
@@ -70,8 +71,9 @@ export const WhyChooseUsSection = () => {
         <div className="flex flex-col lg:flex-row items-center lg:items-start gap-12">
           {/* Left Image Section */}
           <div className="relative lg:w-1/2 flex justify-center lg:justify-start items-center">
+            {/* Updated src to use the imported local image */}
             <img
-              src="https://placehold.co/600x400/CCCCCC/FFFFFF?text=Team+Image" // Placeholder for your team image
+              src={teamImage} // Changed from ".assets/team.png" to imported teamImage
               alt="GeoHolidays Team"
               className="rounded-2xl shadow-xl w-full max-w-lg object-cover"
             />
