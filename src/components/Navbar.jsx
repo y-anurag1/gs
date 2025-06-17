@@ -6,14 +6,23 @@ export const Navbar = () => {
 
   const handleScroll = (id) => {
     const element = document.getElementById(id);
-    if (element && navbarRef.current) {
-      const navbarHeight = navbarRef.current.offsetHeight;
-      const offsetTop = element.offsetTop - navbarHeight;
+    const navbarHeight = navbarRef.current ? navbarRef.current.offsetHeight : 0; // Get navbar height, default to 0 if ref not ready
 
+    if (id === 'home-section') {
+      // For the home section, scroll all the way to the top (0)
+      window.scrollTo({
+        top: 0,
+        behavior: 'smooth'
+      });
+    } else if (element) {
+      // For other sections, scroll with an offset for the sticky navbar
+      const offsetTop = element.offsetTop - navbarHeight;
       window.scrollTo({
         top: offsetTop,
         behavior: 'smooth'
       });
+    } else {
+      console.warn(`Could not find element with ID: ${id}.`);
     }
   };
 
@@ -31,12 +40,13 @@ export const Navbar = () => {
 
         {/* Navigation Links (Desktop) */}
         <div className="hidden md:flex flex-grow justify-center space-x-8 lg:space-x-12 mb-4 md:mb-0">
+          {/* Home link now specifically scrolls to top: 0 */}
           <NavLink href="#home-section" onClick={() => handleScroll('home-section')}>Home</NavLink>
           <NavLink href="#about-section" onClick={() => handleScroll('about-section')}>About</NavLink>
           <NavLink href="#services-section" onClick={() => handleScroll('services-section')}>Services</NavLink>
           <NavLink href="#why-choose-us-section" onClick={() => handleScroll('why-choose-us-section')}>Why Choose Us</NavLink>
           <NavLink href="#packages-section" onClick={() => handleScroll('packages-section')}>Packages</NavLink>
-          <NavLink href="#guests-section" onClick={() => handleScroll('guests-section')}>Guests</NavLink>
+          <NavLink href="#" >Guests</NavLink>
           <NavLink href="#contact-section" onClick={() => handleScroll('contact-section')}>Contact</NavLink>
         </div>
 
@@ -49,12 +59,13 @@ export const Navbar = () => {
       </div>
       {/* Mobile Navigation - A simple example, would typically use a responsive menu icon */}
       <div className="md:hidden flex flex-col items-center mt-4 space-y-2">
+        {/* Home link in mobile nav also scrolls to top: 0 */}
         <NavLink href="#home-section" onClick={() => handleScroll('home-section')}>Home</NavLink>
         <NavLink href="#about-section" onClick={() => handleScroll('about-section')}>About</NavLink>
         <NavLink href="#services-section" onClick={() => handleScroll('services-section')}>Services</NavLink>
         <NavLink href="#why-choose-us-section" onClick={() => handleScroll('why-choose-us-section')}>Why Choose Us</NavLink>
         <NavLink href="#packages-section" onClick={() => handleScroll('packages-section')}>Packages</NavLink>
-        <NavLink href="#guests-section" onClick={() => handleScroll('guests-section')}>Guests</NavLink>
+        <NavLink href="#" >Guests</NavLink>
         <NavLink href="#contact-section" onClick={() => handleScroll('contact-section')}>Contact</NavLink>
       </div>
     </nav>
@@ -63,17 +74,12 @@ export const Navbar = () => {
 
 // Helper component for navigation links
 const NavLink = ({ href, children, onClick }) => (
-  // Added relative for pseudo-element positioning
-  // Added group for targeting pseudo-element on hover
-  // Added transition-transform, duration-200, hover:scale-105 for pop effect
-  // Adjusted text-gray-700 hover:text-blue-600 font-medium transition-colors duration-200
   <a
     href={href}
-    onClick={(e) => { e.preventDefault(); onClick(); }}
-    className="relative text-gray-700 hover:text-blue-600 font-medium transform transition-all duration-200 hover:scale-105 group" // 'transition-all' covers color change, scale, and pseudo-element
+    onClick={(e) => { e.preventDefault(); onClick(); }} // Prevent default hash behavior
+    className="relative text-gray-700 hover:text-blue-600 font-medium transform transition-all duration-200 hover:scale-105 group"
   >
     {children}
-    {/* Underline pseudo-element */}
     <span
       className="absolute bottom-0 left-0 w-full h-[2px] bg-blue-600 transform scale-x-0 group-hover:scale-x-100 transition-transform duration-300 origin-left"
     ></span>

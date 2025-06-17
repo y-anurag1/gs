@@ -1,8 +1,38 @@
-import React from 'react';
+import React, { useRef, useState, useEffect } from 'react'; // Import hooks for animation
 // Import necessary Lucide React icons
 import { Building, Hotel, MapPin, Car, Book, Headset, CheckCircle, Plane, Train, Bus, Bed } from 'lucide-react'; 
 
 export const ServicesSection = () => {
+  const sectionRef = useRef(null); // Ref to observe the section
+  const [hasAnimated, setHasAnimated] = useState(false); // State to control animation
+
+  useEffect(() => {
+    const observer = new IntersectionObserver(
+      ([entry]) => {
+        // If the section is intersecting and hasn't animated yet, trigger animation
+        if (entry.isIntersecting && !hasAnimated) {
+          setHasAnimated(true);
+        }
+      },
+      {
+        root: null, // observe against the viewport
+        rootMargin: '0px',
+        threshold: 0.3, // Trigger when 30% of the section is visible
+      }
+    );
+
+    if (sectionRef.current) {
+      observer.observe(sectionRef.current);
+    }
+
+    // Cleanup observer on component unmount
+    return () => {
+      if (sectionRef.current) {
+        observer.unobserve(sectionRef.current);
+      }
+    };
+  }, [hasAnimated]); // Dependency array includes hasAnimated
+
   // New data for the 6 service cards
   const services = [
     {
@@ -73,7 +103,14 @@ export const ServicesSection = () => {
 
   return (
     // Ensure this section has the ID for scrolling
-    <section id="services-section" className="bg-gray-100 py-16 md:py-24">
+    // Added ref, transition, transform, and opacity for animation
+    <section
+      id="services-section"
+      ref={sectionRef} // Attach the ref here
+      className={`bg-gray-100 py-16 md:py-24 transition-all duration-1000 ease-out
+        ${hasAnimated ? 'translate-y-0 opacity-100' : 'translate-y-20 opacity-0'}
+      `}
+    >
       <div className="container mx-auto px-4 lg:px-8">
         <h2 className="text-gray-900 text-2xl md:text-3xl lg:text-4xl font-extrabold mb-12 text-left">
           Services We Provided

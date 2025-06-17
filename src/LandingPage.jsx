@@ -2,8 +2,13 @@ import React from 'react';
 import { Navbar } from './components/Navbar';
 import { HeroSection } from './components/HeroSection';
 import { ImageSection } from './components/ImageSection';
-import { StatsSection } from './components/StatsSection'; // Correct: named import
+import { StatsSection } from './components/StatsSection';
 import { ServicesSection } from './components/ServicesSection';
+import { WhyChooseUsSection } from './components/WhyChooseUsSection';
+import { FAQSection } from './components/FAQSection';
+import { ContactUsSection } from './components/ContactUsSection';
+import { TeamSection } from './components/TeamSection';
+import { Footer } from './components/Footer'; // Import the new Footer
 
 export const LandingPage = () => {
   return (
@@ -17,6 +22,11 @@ export const LandingPage = () => {
       </div>
       <StatsSection />
       <ServicesSection />
+      <WhyChooseUsSection />
+      <FAQSection />
+      <ContactUsSection />
+      <TeamSection />
+      <Footer /> {/* Add the Footer section here */}
     </div>
   );
 };

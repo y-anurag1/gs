@@ -79,32 +79,37 @@ export const StatsSection = () => {
 
 
   return (
-    <section ref={sectionRef} className="bg-white py-10 md:py-16 text-gray-800">
+    // Changed section background to bg-blue-50 for consistent UI
+    <section id="stats-section" ref={sectionRef} className="bg-blue-50 py-12 md:py-20 text-gray-800"> {/* Reduced vertical padding */}
       <div className="container mx-auto px-4 lg:px-8 text-center">
-        <h2 className="text-gray-900 text-3xl md:text-4xl lg:text-5xl font-extrabold mb-8">
-          Strategic Solutions for MICE Travel
+        {/* Heading size reduced from text-3xl/4xl/5xl to text-2xl/3xl/4xl and mb-8 to mb-6 */}
+        <h2 className="text-gray-900 text-2xl md:text-3xl lg:text-4xl font-extrabold mb-6">
+          Strategic Solutions for<span className="text-orange-500"> MICE</span>  Travel
         </h2>
 
-        <div className="grid grid-cols-1 md:grid-cols-3 gap-8 md:gap-16">
-          <div className="bg-white p-4 rounded-2xl shadow-lg flex flex-col items-center border border-gray-100"> {/* Reduced padding from p-6 to p-4 */}
-            <p className="text-blue-600 text-4xl md:text-5xl lg:text-6xl font-bold mb-1"> {/* Reduced number font size */}
+        {/* Gap reduced from gap-8/16 to gap-6/8 */}
+        <div className="grid grid-cols-1 md:grid-cols-3 gap-6 md:gap-8">
+          <div className="bg-white p-3 rounded-xl shadow-lg flex flex-col items-center border border-gray-100"> {/* Padding reduced, border-radius slightly less */}
+            {/* Number font size reduced further */}
+            <p className="text-blue-800 text-3xl md:text-4xl lg:text-5xl font-bold mb-0.5">
               {yearsExperience}+
             </p>
-            <p className="text-base md:text-lg text-gray-700">Years Experience</p> {/* Reduced description font size */}
+            {/* Description font size reduced further */}
+            <p className="text-sm md:text-base text-gray-700">Years Experience</p>
           </div>
 
-          <div className="bg-white p-4 rounded-2xl shadow-lg flex flex-col items-center border border-gray-100"> {/* Reduced padding */}
-            <p className="text-blue-600 text-4xl md:text-5xl lg:text-6xl font-bold mb-1"> {/* Reduced number font size */}
+          <div className="bg-white p-3 rounded-xl shadow-lg flex flex-col items-center border border-gray-100">
+            <p className="text-blue-800 text-3xl md:text-4xl lg:text-5xl font-bold mb-0.5">
               {happyTravelers}+
             </p>
-            <p className="text-base md:text-lg text-gray-700">Happy Travelers</p> {/* Reduced description font size */}
+            <p className="text-sm md:text-base text-gray-700">Happy Travelers</p>
           </div>
 
-          <div className="bg-white p-4 rounded-2xl shadow-lg flex flex-col items-center border border-gray-100"> {/* Reduced padding */}
-            <p className="text-blue-600 text-4xl md:text-5xl lg:text-6xl font-bold mb-1"> {/* Reduced number font size */}
+          <div className="bg-white p-3 rounded-xl shadow-lg flex flex-col items-center border border-gray-100">
+            <p className="text-blue-800 text-3xl md:text-4xl lg:text-5xl font-bold mb-0.5">
               {iconicDestinations}+
             </p>
-            <p className="text-base md:text-lg text-gray-700">Iconic Destinations</p> {/* Reduced description font size */}
+            <p className="text-sm md:text-base text-gray-700">Iconic Destinations</p>
           </div>
         </div>
       </div>
