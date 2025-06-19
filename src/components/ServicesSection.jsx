@@ -38,8 +38,7 @@ export const ServicesSection = () => {
       features: [
         'End-to-End Event Planning',
         'Group Travel Management',
-        'Venue & Accommodation Booking',
-        'On-site Coordination & Support',
+        'Venue & Accommodation Booking'
       ],
     },
     {

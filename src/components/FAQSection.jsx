@@ -195,7 +195,8 @@ export const FAQSection = () => {
     <section
       id="faq-section"
       ref={sectionRef}
-      className={`bg-white py-16 md:py-24 px-4 md:px-8 lg:px-12 transition-all duration-1000 ease-out
+      // Increased horizontal padding: px-4 md:px-8 lg:px-12 changed to px-8 md:px-16 lg:px-24
+      className={`bg-white py-16 md:py-24 px-8 md:px-16 lg:px-24 transition-all duration-1000 ease-out
         ${hasAnimated ? 'translate-y-0 opacity-100' : 'translate-y-20 opacity-0'}
       `}
     >
@@ -257,7 +258,7 @@ export const FAQSection = () => {
             <div
               key={index}
               ref={(el) => (itemRefs.current[index] = el)}
-              className="bg-white rounded-lg border border-gray-200 shadow-sm opacity-0 transform translate-y-4"
+              className="bg-white rounded-lg shadow-sm opacity-0 transform translate-y-4" // Removed border
             >
               <div className="p-6">
                 <div className="flex items-start">
@@ -273,7 +274,6 @@ export const FAQSection = () => {
         </div>
 
         {/* Load More Button */}
-        {/* Only show button if there are more items to load and not all are already shown */}
         {!showAll && visibleCount < faqData.length && (
           <div className="flex justify-center mt-12">
             <button

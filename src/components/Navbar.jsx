@@ -35,8 +35,9 @@ export const Navbar = ({ currentActiveSection }) => {
 
   return (
     <nav ref={navbarRef} className="sticky top-0 z-50 w-full bg-white shadow-sm py-1 md:py-2">
-      <div className="container mx-auto flex flex-col md:flex-row items-center justify-between px-4 lg:px-8 max-w-5xl">
-        {/* Logo - h-20 remains. flex-shrink-0 is good here. */}
+      {/* Changed px-8 lg:px-16 to px-8 lg:px-24 to match hero-section's horizontal padding */}
+      <div className="flex flex-col md:flex-row items-center justify-between px-8 lg:px-24">
+        {/* Logo */}
         <div className="flex items-center mb-4 md:mb-0 flex-shrink-0">
           <img
             src={logo}
@@ -45,8 +46,9 @@ export const Navbar = ({ currentActiveSection }) => {
           />
         </div>
 
-        {/* Desktop Navigation Links - flex-grow on this div pushes the button right */}
-        <div className="hidden md:flex flex-grow justify-center space-x-6">
+        {/* Desktop Navigation Links - Increased spacing between links */}
+        {/* Changed space-x-6 to space-x-8 for more padding */}
+        <div className="hidden md:flex flex-grow justify-center space-x-8">
           {navLinks.map((link) => (
             <NavLink
               key={link.id}
@@ -59,9 +61,8 @@ export const Navbar = ({ currentActiveSection }) => {
           ))}
         </div>
 
-        {/* Contact Us Button (Desktop) - ml-8 ensures gap from links. flex-shrink-0 is good. */}
-        {/* Line 53: Added onClick to scroll to contact-us-section */}
-        <div className="hidden md:flex ml-8 flex-shrink-0">
+        {/* Contact Us Button (Desktop) */}
+        <div className="hidden md:flex flex-shrink-0">
           <button
             onClick={() => handleScroll('contact-us-section')}
             className="px-8 py-2 rounded-lg bg-blue-800 text-white font-semibold shadow-md hover:bg-blue-700 transition-colors duration-200"
@@ -99,7 +100,6 @@ export const Navbar = ({ currentActiveSection }) => {
             </NavLink>
           ))}
           {/* Mobile Contact Us Button */}
-          {/* Line 80: Added onClick to scroll to contact-us-section */}
           <div className="px-4 py-2">
             <button
               onClick={() => handleScroll('contact-us-section')}

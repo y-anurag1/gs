@@ -1,4 +1,5 @@
 import React, { useRef, useState, useEffect } from 'react';
+import { Headset, MapPin } from 'lucide-react'; // Ensure these icons are imported if used elsewhere in the file
 
 export const TestimonialsSection = () => {
   const sectionRef = useRef(null);
@@ -90,18 +91,17 @@ export const TestimonialsSection = () => {
       {/* Container for heading, limited width, centered */}
       <div className="container mx-auto px-4 lg:px-8 text-center">
         {/* NEW HEADING DESIGN */}
-        <div className="flex flex-col items-center mb-8"> {/* mb-8 for spacing below heading */}
+        <div className="flex flex-col items-center mb-8">
           <h2 className="text-3xl md:text-4xl font-extrabold text-gray-900 mb-2">
-            What our clients say! {/* mb-2 for spacing from underline */}
+            What our clients say!
           </h2>
           {/* Custom Underline */}
-          <div className="w-24 h-1 bg-orange-300 rounded-full"></div> {/* Adjust width and color as needed */}
+          <div className="w-24 h-1 bg-orange-300 rounded-full"></div>
         </div>
-        {/* Removed the extra description paragraph as per new image */}
       </div>
 
       {/* Full-width carousel track container with fade effects */}
-      <div className="w-full overflow-hidden py-8">
+      <div className="w-full overflow-hidden py-8 relative"> {/* Added relative for gradient positioning */}
         {/* Left Gradient Fade Overlay */}
         <div className="absolute left-0 top-0 h-full w-24 md:w-32 bg-gradient-to-r from-gray-100 to-transparent z-20 pointer-events-none"></div>
         {/* Right Gradient Fade Overlay */}
@@ -170,8 +170,11 @@ export const TestimonialsSection = () => {
                 <p className="text-xs text-gray-700 leading-relaxed flex-grow mb-4 relative z-10">
                   {testimonial.text}
                 </p>
-                <div className="relative z-10 mt-auto">
+                {/* Moved name and date to the right */}
+                {/* Changed `text-center` to `text-right` */}
+                <div className="relative z-10 mt-auto w-full text-right">
                   <h3 className="text-sm font-semibold text-gray-900 leading-tight">{testimonial.author}</h3>
+                  <p className="text-xs text-gray-500">{testimonial.date}</p>
                 </div>
               </div>
             </div>

@@ -80,26 +80,27 @@ export const TeamSection = () => {
     <section
       id="team-section"
       ref={sectionRef}
-      className={`bg-white py-12 md:py-20 transition-all duration-1000 ease-out
+      // Line 50: Reduced vertical padding from py-12 md:py-20 to py-8 md:py-16
+      className={`bg-white py-8 md:py-16 transition-all duration-1000 ease-out
         ${hasAnimated ? 'translate-y-0 opacity-100' : 'translate-y-20 opacity-0'}
       `}
     >
       <div className="container mx-auto px-4 lg:px-8">
         {/* Main Heading and Subtitle - UPDATED TO NEW DESIGN */}
-        {/* Line 50: Replaced existing h2 and p with the new heading structure */}
-        <div className="flex flex-col items-center mb-10 text-center">
-          <h2 className="text-3xl md:text-4xl font-extrabold text-gray-900 mb-2">
+        <div className="flex flex-col items-center mb-8 text-center"> {/* Reduced mb-10 to mb-8 */}
+          {/* Reduced heading font size: text-3xl md:text-4xl to text-2xl md:text-3xl */}
+          <h2 className="text-2xl md:text-3xl font-extrabold text-gray-900 mb-2">
             Meet Our Team
           </h2>
           <div className="w-24 h-1 bg-orange-300 rounded-full"></div> {/* Orange underline */}
         </div>
-        {/* The descriptive paragraph below the main heading is removed to match the new style */}
 
         {/* Team Member Cards Grid */}
-        <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-6 justify-items-center">
+        <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-4 justify-items-center"> {/* Reduced gap-6 to gap-4 */}
           {teamMembers.map((member) => (
             // Card container: `relative` for absolute children, `group` for hover effects
-            <div key={member.id} className="relative w-full max-w-xs h-80 rounded-lg overflow-hidden shadow-lg group">
+            // Line 66: Reduced height from h-80 to h-72
+            <div key={member.id} className="relative w-full max-w-xs h-72 rounded-lg overflow-hidden shadow-lg group">
               {/* Image Layer - always present, fades on hover */}
               <img
                 src={member.image}
@@ -114,25 +115,26 @@ export const TeamSection = () => {
               </div>
 
               {/* Hover Content Layer - Icon, Name, Description, and Social Icons on white background */}
-              <div className="absolute inset-0 bg-white flex flex-col items-center justify-center p-4 text-center opacity-0 invisible transition-opacity duration-300 group-hover:opacity-100 group-hover:visible">
-                {/* Blue Icon */}
-                <User className="w-8 h-8 text-blue-600 mb-3" />
-                {/* Name - Reappears, styled like a heading */}
-                <h3 className="text-base font-semibold text-gray-900 mb-1">{member.name}</h3>
-                {/* Description Text */}
-                <p className="text-xs text-gray-600 leading-relaxed mb-4">
+              {/* Reduced p-4 to p-3 */}
+              <div className="absolute inset-0 bg-white flex flex-col items-center justify-center p-3 text-center opacity-0 invisible transition-opacity duration-300 group-hover:opacity-100 group-hover:visible">
+                {/* Blue Icon - Kept same size */}
+                <User className="w-8 h-8 text-blue-600 mb-2" /> {/* Reduced mb-3 to mb-2 */}
+                {/* Name - Reappears, styled like a heading - Reduced text-base to text-sm */}
+                <h3 className="text-sm font-semibold text-gray-900 mb-0.5">{member.name}</h3> {/* Reduced mb-1 to mb-0.5 */}
+                {/* Description Text - Reduced text-xs to text-xxs if needed, or keep text-xs and reduce padding/line-height */}
+                <p className="text-xs text-gray-600 leading-snug mb-3"> {/* Reduced mb-4 to mb-3, leading-relaxed to leading-snug */}
                   {member.description}
                 </p>
-                {/* Social Icons - Re-added here */}
-                <div className="flex justify-center space-x-3">
+                {/* Social Icons - Kept same size */}
+                <div className="flex justify-center space-x-2"> {/* Reduced space-x-3 to space-x-2 */}
                   <a href={member.social.instagram} target="_blank" rel="noopener noreferrer" className="text-gray-500 hover:text-blue-600 transition-colors duration-200">
-                    <Instagram className="w-6 h-6" />
+                    <Instagram className="w-5 h-5" /> {/* Reduced w-6 h-6 to w-5 h-5 */}
                   </a>
                   <a href={member.social.facebook} target="_blank" rel="noopener noreferrer" className="text-gray-500 hover:text-blue-600 transition-colors duration-200">
-                    <Facebook className="w-6 h-6" />
+                    <Facebook className="w-5 h-5" /> {/* Reduced w-6 h-6 to w-5 h-5 */}
                   </a>
                   <a href={member.social.linkedin} target="_blank" rel="noopener noreferrer" className="text-gray-500 hover:text-blue-600 transition-colors duration-200">
-                    <Linkedin className="w-6 h-6" />
+                    <Linkedin className="w-5 h-5" /> {/* Reduced w-6 h-6 to w-5 h-5 */}
                   </a>
                 </div>
               </div>
