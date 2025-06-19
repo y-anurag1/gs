@@ -1,65 +1,107 @@
 import React, { useState, useRef, useEffect } from 'react';
-import { Minus, Plus } from 'lucide-react'; // Icons for accordion toggle
+import { Smile, FileText, CreditCard, X, Mail, Settings, Users, Video, Headset, Book, ExternalLink } from 'lucide-react';
 
 export const FAQSection = () => {
+  const initialVisibleCount = 4; // Show only 4 initially
+  const [visibleCount, setVisibleCount] = useState(initialVisibleCount);
+  const [showAll, setShowAll] = useState(false); // State to toggle between showing initial count and all
+
   const faqData = [
     {
-      question: 'Do you offer customized travel packages?',
-      answer: 'Yes, we specialize in creating tailor-made travel itineraries based on your interests, budget, and schedule. Just tell us your preferences and we’ll handle the rest.',
+      icon: (
+        <div className="p-2 bg-gray-100 rounded-lg border border-gray-200 flex items-center justify-center flex-shrink-0">
+          <Smile className="w-5 h-5 text-gray-700" />
+        </div>
+      ),
+      question: 'Is there a free trial available?',
+      answer: 'Yes, you can try us for free for 30 days. If you want, we\'ll provide you with a free 30-minute onboarding call to get you up and running.',
     },
     {
-      question: 'Do you assist with visa applications?',
-      answer: 'Absolutely. Our travel consultants can guide you through the visa process and provide necessary documentation and support to simplify your application.',
+      icon: (
+        <div className="p-2 bg-gray-100 rounded-lg border border-gray-200 flex items-center justify-center flex-shrink-0">
+          <FileText className="w-5 h-5 text-gray-700" />
+        </div>
+      ),
+      question: 'Can I change my plan later?',
+      answer: 'Of course you can! Our pricing scales with your company. Chat to our friendly team to find a solution that works for you as you grow.',
     },
     {
-      question: 'Can I book just flights or hotels through you?',
-      answer: 'Yes, we offer standalone services including flight booking, hotel reservations, travel insurance, and airport transfers. You can customize based on what you need.',
+      icon: (
+        <div className="p-2 bg-gray-100 rounded-lg border border-gray-200 flex items-center justify-center flex-shrink-0">
+          <CreditCard className="w-5 h-5 text-gray-700" />
+        </div>
+      ),
+      question: 'What is your cancellation policy?',
+      answer: 'We understand that things change. You can cancel your plan at any time and we\'ll refund you the difference already paid.',
     },
     {
-      question: 'What if my travel plans change or get canceled?',
-      answer: 'We understand that plans can change. We offer flexible cancellation and rescheduling options depending on the airline, hotel, and service provider policies.',
+      icon: (
+        <div className="p-2 bg-gray-100 rounded-lg border border-gray-200 flex items-center justify-center flex-shrink-0">
+          <Settings className="w-5 h-5 text-gray-700" />
+        </div>
+      ),
+      question: 'Can other info be added to an invoice?',
+      answer: 'At the moment, the only way to add additional information to invoices is to add the information to the workspace\'s name manually.',
     },
     {
-      question: 'What payment methods do you accept?',
-      answer: 'We accept all major payment methods including MasterCard, Visa, RuPay cards, UPI, bank transfers, and checks.',
+      icon: (
+        <div className="p-2 bg-gray-100 rounded-lg border border-gray-200 flex items-center justify-center flex-shrink-0">
+          <Users className="w-5 h-5 text-gray-700" />
+        </div>
+      ),
+      question: 'How does billing work?',
+      answer: 'Plans are per workspace, not per account. You can upgrade one workspace, and still have any number of free workspaces.',
+    },
+    {
+      icon: (
+        <div className="p-2 bg-gray-100 rounded-lg border border-gray-200 flex items-center justify-center flex-shrink-0">
+          <Mail className="w-5 h-5 text-gray-700" />
+        </div>
+      ),
+      question: 'How do I change my account email?',
+      answer: 'You can change the email address associated with your account by going to untitledui.com/account from a laptop or desktop.',
+    },
+    {
+      icon: (
+        <div className="p-2 bg-gray-100 rounded-lg border border-gray-200 flex items-center justify-center flex-shrink-0">
+          <Headset className="w-5 h-5 text-gray-700" />
+        </div>
+      ),
+      question: 'How does support work?',
+      answer: 'If you\'re having trouble with Untitled UI, we\'re here to try and help via hello@untitledui.com. We\'re a small team, but will get back to soon.',
+    },
+    {
+      icon: (
+        <div className="p-2 bg-gray-100 rounded-lg border border-gray-200 flex items-center justify-center flex-shrink-0">
+          <Video className="w-5 h-5 text-gray-700" />
+        </div>
+      ),
+      question: 'Do you provide tutorials?',
+      answer: 'Not yet, but we\'re working on it! In the meantime, we\'ve done our best to make it intuitive and we\'re building our documentation page.',
+    },
+    {
+      icon: (
+        <div className="p-2 bg-gray-100 rounded-lg border border-gray-200 flex items-center justify-center flex-shrink-0">
+          <X className="w-5 h-5 text-gray-700" />
+        </div>
+      ),
+      question: 'What happens if I exceed my plan limits?',
+      answer: 'If you exceed your plan limits, we will notify you and offer options to upgrade or adjust your usage. Services will not be immediately interrupted.',
+    },
+    {
+      icon: (
+        <div className="p-2 bg-gray-100 rounded-lg border border-gray-200 flex items-center justify-center flex-shrink-0">
+          <Book className="w-5 h-5 text-gray-700" />
+        </div>
+      ),
+      question: 'Where can I find documentation?',
+      answer: 'Our full documentation is available online at our knowledge base, accessible from the footer of this page. It covers all features and troubleshooting.',
     },
   ];
 
-  // State to manage which FAQ item is open
-  const [openIndex, setOpenIndex] = useState(null);
-
-  const toggleFAQ = (index) => {
-    setOpenIndex(openIndex === index ? null : index);
-  };
-
-  // Refs for each answer content div to measure their scrollHeight
-  const contentRefs = useRef([]);
-  // Initialize contentRefs array with nulls for each FAQ item
-  if (contentRefs.current.length !== faqData.length) {
-    contentRefs.current = Array(faqData.length).fill(null);
-  }
-
-  // Effect to apply dynamic max-height for smooth transitions
-  useEffect(() => {
-    faqData.forEach((_, index) => {
-      const content = contentRefs.current[index];
-      if (content) {
-        if (openIndex === index) {
-          // When opening, set max-height to scrollHeight
-          content.style.maxHeight = `${content.scrollHeight}px`;
-          content.style.opacity = 1;
-        } else {
-          // When closing, set max-height to 0 and opacity to 0
-          content.style.maxHeight = '0px';
-          content.style.opacity = 0;
-        }
-      }
-    });
-  }, [openIndex, faqData]); // Re-run when openIndex or faqData changes
-
-  // Scroll animation state and ref for the whole section
   const sectionRef = useRef(null);
   const [hasAnimated, setHasAnimated] = useState(false);
+  const faqGridRef = useRef(null); // Ref for the grid container to measure its height
 
   useEffect(() => {
     const observer = new IntersectionObserver(
@@ -86,90 +128,162 @@ export const FAQSection = () => {
     };
   }, [hasAnimated]);
 
-  // Function to handle scrolling to the Contact Us section
-  const handleScrollToContact = () => {
-    const contactSection = document.getElementById('contact-section');
-    // Assuming the navbar has a 'nav' tag and is sticky
-    const navbar = document.querySelector('nav'); 
+  const itemRefs = useRef([]);
+  useEffect(() => {
+    itemRefs.current = faqData.map((_, i) => itemRefs.current[i] || null);
 
-    if (contactSection && navbar) {
-      const navbarHeight = navbar.offsetHeight; // Get the navbar's current height
-      const offsetTop = contactSection.offsetTop - navbarHeight;
+    const observer = new IntersectionObserver(
+      (entries) => {
+        entries.forEach((entry) => {
+          if (entry.isIntersecting) {
+            entry.target.classList.add('animate-fade-in-up');
+            observer.unobserve(entry.target);
+          }
+        });
+      },
+      {
+        root: null,
+        rootMargin: '0px',
+        threshold: 0.1,
+      }
+    );
 
-      window.scrollTo({
-        top: offsetTop,
-        behavior: 'smooth'
-      });
-    } else {
-      console.warn("Could not find 'contact-section' or the navbar for scrolling.");
-    }
+    // Observe only the initially visible items or those loaded by "Load More"
+    itemRefs.current.slice(0, visibleCount).forEach((item) => {
+      if (item && !item.classList.contains('animate-fade-in-up')) {
+        observer.observe(item);
+      }
+    });
+
+    return () => {
+      observer.disconnect();
+    };
+  }, [visibleCount, faqData]);
+
+  const handleLoadMore = () => {
+    setShowAll(true); // When "Load more" is clicked, show all
+    setVisibleCount(faqData.length); // Update visibleCount to show all
   };
+
+  // Calculate the container height for the "peek" effect
+  const [containerHeight, setContainerHeight] = useState('auto'); // Default to auto
+  const cardHeightRef = useRef(0); // To store the height of a single card
+
+  useEffect(() => {
+    if (!faqGridRef.current || showAll) { // If showing all, let height be auto
+      setContainerHeight('auto');
+      return;
+    }
+
+    // Measure the height of the first card if it exists
+    if (itemRefs.current[0]) {
+      cardHeightRef.current = itemRefs.current[0].offsetHeight;
+    }
+
+    // Calculate height to show 2 rows (4 cards) + a peek of the next row
+    // Assuming gap-y-6 (24px)
+    // 2 cards high * cardHeight + 1 gap (for the 2 rows) + a bit extra for the peek
+    if (cardHeightRef.current > 0) {
+      const calculatedHeight = (2 * cardHeightRef.current) + 24 + 40; // 2 rows + 1 gap + 40px peek
+      setContainerHeight(`${calculatedHeight}px`);
+    }
+
+  }, [visibleCount, showAll, faqData]); // Recalculate if these change
+
 
   return (
     <section
-      id="faq-section" // ID for navbar scrolling
+      id="faq-section"
       ref={sectionRef}
-      className={`bg-white py-16 md:py-24 transition-all duration-1000 ease-out
+      className={`bg-white py-16 md:py-24 px-4 md:px-8 lg:px-12 transition-all duration-1000 ease-out
         ${hasAnimated ? 'translate-y-0 opacity-100' : 'translate-y-20 opacity-0'}
       `}
     >
-      <div className="container mx-auto px-4 lg:px-8">
-        <h2 className="text-4xl md:text-5xl font-extrabold text-gray-900 mb-12 text-center">
-          Frequently Asked Questions
-        </h2>
+      <style>
+        {`
+        @keyframes fade-in-up {
+          from {
+            opacity: 0;
+            transform: translateY(20px);
+          }
+          to {
+            opacity: 1;
+            transform: translateY(0);
+          }
+        }
+        .animate-fade-in-up {
+          animation: fade-in-up 0.6s ease-out forwards;
+        }
 
-        <div className="flex flex-col lg:flex-row gap-8">
-          {/* Left Column: FAQ Accordion - UI updated here */}
-          <div className="lg:w-2/3 space-y-3">
-            {faqData.map((faq, index) => (
-              <div key={index} className="bg-white border border-gray-200 rounded-xl shadow-sm overflow-hidden">
-                <button
-                  className="w-full flex items-center p-4 text-lg font-semibold text-gray-800 focus:outline-none"
-                  onClick={() => toggleFAQ(index)}
-                >
-                  {/* Icon on the left, with margin and flex-shrink-0 */}
-                  {openIndex === index ? (
-                    <Minus className="w-5 h-5 text-blue-600 mr-3 flex-shrink-0" />
-                  ) : (
-                    <Plus className="w-5 h-5 text-blue-600 mr-3 flex-shrink-0" />
-                  )}
-                  {faq.question}
-                </button>
-                {/* Answer content with transition properties */}
-                <div
-                  ref={(el) => (contentRefs.current[index] = el)} // Attach ref to this div
-                  className="px-4 pb-4 pt-0 text-gray-700 leading-relaxed overflow-hidden transition-all duration-300 ease-in-out"
-                  style={{
-                    maxHeight: openIndex === index ? `${contentRefs.current[index]?.scrollHeight || 0}px` : '0px',
-                    opacity: openIndex === index ? 1 : 0
-                  }}
-                >
-                  {faq.answer}
-                </div>
-              </div>
-            ))}
-          </div>
-
-          {/* Right Column: Contact Us Sidebar */}
-          <div className="lg:w-1/3 bg-blue-50 p-6 rounded-lg shadow-md flex flex-col items-center text-center">
-            <svg className="w-16 h-16 text-blue-600 mb-4" fill="none" stroke="currentColor" viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg">
-              <path strokeLinecap="round" strokeLinejoin="round" strokeWidth="2" d="M8 10h.01M12 10h.01M16 10h.01M9 16H5a2 2 0 01-2-2V6a2 2 0 012-2h14a2 2 0 012 2v8a2 2 0 01-2 2h-5l-5 4v-4z"></path>
-            </svg>
-            <h3 className="text-xl font-bold text-gray-900 mb-2">
-              Can't find the answer you're looking for?
-            </h3>
-            <p className="text-gray-700 mb-6">
-              Our travel experts are here to help. Whether you have questions about destinations, bookings, or anything else, we’re just a message away. Let’s plan your next journey together.
+        /* Custom transition for the grid container height */
+        .faq-grid-container-transition {
+          transition: height 0.7s ease-in-out;
+        }
+        `}
+      </style>
+      <div className="container mx-auto max-w-full">
+        {/* Main Heading and Subtitle - LEFT ALIGNED, with Documentation button */}
+        <div className="flex flex-col sm:flex-row sm:items-end sm:justify-between mb-12">
+          <div>
+            <h2 className="text-4xl md:text-5xl font-extrabold text-gray-900 mb-4 text-left">
+              Frequently Asked Questions
+            </h2>
+            <p className="text-lg text-gray-600 max-w-3xl text-left">
+              Quick answers to questions you may have. Can't find what you're looking for? Check out our full{' '}
+              <a href="#" className="text-blue-600 hover:underline">documentation</a>.
             </p>
-            {/* THIS BUTTON ALREADY HAS THE onClick FOR SCROLLING */}
-            <button
-              onClick={handleScrollToContact} // This line ensures the scroll happens
-              className="px-8 py-3 rounded-lg bg-blue-800 text-white font-semibold shadow-md hover:bg-blue-700 transition-colors duration-200"
+          </div>
+          {/* Documentation Button */}
+          <div className="mt-6 sm:mt-0 flex-shrink-0">
+            <a
+              href="#"
+              target="_blank"
+              rel="noopener noreferrer"
+              className="inline-flex items-center px-6 py-3 border border-gray-300 rounded-lg text-gray-800 font-medium hover:bg-gray-50 transition-colors duration-200"
             >
-              Contact Us
-            </button>
+              Documentation <ExternalLink className="w-4 h-4 ml-2" />
+            </a>
           </div>
         </div>
+
+        {/* FAQ Cards Grid - Enclosed in a div to control height for peek effect */}
+        {/* Conditional height and overflow for the peek/show all effect */}
+        <div
+          ref={faqGridRef}
+          className="relative grid grid-cols-1 md:grid-cols-2 gap-x-8 gap-y-6 faq-grid-container-transition"
+          style={{ height: containerHeight, overflow: showAll ? 'visible' : 'hidden' }}
+        >
+          {faqData.map((faq, index) => (
+            <div
+              key={index}
+              ref={(el) => (itemRefs.current[index] = el)}
+              className="bg-white rounded-lg border border-gray-200 shadow-sm opacity-0 transform translate-y-4"
+            >
+              <div className="p-6">
+                <div className="flex items-start">
+                  {faq.icon}
+                  <div className="ml-4">
+                    <h3 className="text-lg font-semibold text-gray-900 mb-1 leading-snug">{faq.question}</h3>
+                    <p className="text-sm text-gray-600 leading-relaxed">{faq.answer}</p>
+                  </div>
+                </div>
+              </div>
+            </div>
+          ))}
+        </div>
+
+        {/* Load More Button */}
+        {/* Only show button if there are more items to load and not all are already shown */}
+        {!showAll && visibleCount < faqData.length && (
+          <div className="flex justify-center mt-12">
+            <button
+              onClick={handleLoadMore}
+              className="px-6 py-3 rounded-lg bg-white text-gray-800 font-medium shadow-md border border-gray-200 hover:bg-gray-50 transition-colors duration-200"
+            >
+              Load more
+            </button>
+          </div>
+        )}
       </div>
     </section>
   );

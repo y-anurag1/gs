@@ -1,23 +1,21 @@
-import React, { useRef, useState, useEffect } from 'react'; // Import hooks for animation
-// Import necessary Lucide React icons
-import { Building, Hotel, MapPin, Car, Book, Headset, CheckCircle, Plane, Train, Bus, Bed } from 'lucide-react'; 
+import React, { useRef, useState, useEffect } from 'react';
+import { Plane, Train, Bus, Car, Book, Headset, CheckCircle } from 'lucide-react';
 
 export const ServicesSection = () => {
-  const sectionRef = useRef(null); // Ref to observe the section
-  const [hasAnimated, setHasAnimated] = useState(false); // State to control animation
+  const sectionRef = useRef(null);
+  const [hasAnimated, setHasAnimated] = useState(false);
 
   useEffect(() => {
     const observer = new IntersectionObserver(
       ([entry]) => {
-        // If the section is intersecting and hasn't animated yet, trigger animation
         if (entry.isIntersecting && !hasAnimated) {
           setHasAnimated(true);
         }
       },
       {
-        root: null, // observe against the viewport
+        root: null,
         rootMargin: '0px',
-        threshold: 0.3, // Trigger when 30% of the section is visible
+        threshold: 0.3,
       }
     );
 
@@ -25,18 +23,15 @@ export const ServicesSection = () => {
       observer.observe(sectionRef.current);
     }
 
-    // Cleanup observer on component unmount
     return () => {
       if (sectionRef.current) {
         observer.unobserve(sectionRef.current);
       }
     };
-  }, [hasAnimated]); // Dependency array includes hasAnimated
+  }, [hasAnimated]);
 
-  // New data for the 6 service cards
   const services = [
     {
-      // Using Lucide Plane icon as requested
       icon: <Plane className="w-8 h-8 text-blue-600" />,
       title: 'Plane Trip Ticket',
       description: 'Comprehensive travel and event management for meetings, incentives, conferences, and exhibitions – tailored for corporate excellence.',
@@ -48,7 +43,6 @@ export const ServicesSection = () => {
       ],
     },
     {
-      // Using Lucide Train icon as requested
       icon: <Train className="w-8 h-8 text-blue-600" />,
       title: 'Train Trip Ticket',
       description: 'Enjoy seamless travel planning with access to a global network of hotels and flights – tailored for both leisure and business needs.',
@@ -59,7 +53,6 @@ export const ServicesSection = () => {
       ],
     },
     {
-      // Using Lucide Bus icon as requested
       icon: <Bus className="w-8 h-8 text-blue-600" />,
       title: 'Bus Trip Ticket',
       description: 'Tailor-made tour packages designed to fit your travel needs and preferences.',
@@ -70,7 +63,7 @@ export const ServicesSection = () => {
       ],
     },
     {
-      icon: <Car className="w-8 h-8 text-blue-600" />, // Lucide Car for Transportation
+      icon: <Car className="w-8 h-8 text-blue-600" />,
       title: 'Transportation',
       description: 'Convenient transport options including car rentals, airport transfers, and more.',
       features: [
@@ -80,7 +73,7 @@ export const ServicesSection = () => {
       ],
     },
     {
-      icon: <Book className="w-8 h-8 text-blue-600" />, // Lucide Book for Visa Assistance
+      icon: <Book className="w-8 h-8 text-blue-600" />,
       title: 'Visa Assistance',
       description: 'Expert support for hassle-free visa applications and travel documentation.',
       features: [
@@ -90,7 +83,7 @@ export const ServicesSection = () => {
       ],
     },
     {
-      icon: <Headset className="w-8 h-8 text-blue-600" />, // Lucide Headset for 24/7 Support
+      icon: <Headset className="w-8 h-8 text-blue-600" />,
       title: '24/7 Support',
       description: 'Reliable customer support throughout your travel journey—before, during, and after.',
       features: [
@@ -102,19 +95,21 @@ export const ServicesSection = () => {
   ];
 
   return (
-    // Ensure this section has the ID for scrolling
-    // Added ref, transition, transform, and opacity for animation
     <section
       id="services-section"
-      ref={sectionRef} // Attach the ref here
+      ref={sectionRef}
       className={`bg-gray-100 py-16 md:py-24 transition-all duration-1000 ease-out
         ${hasAnimated ? 'translate-y-0 opacity-100' : 'translate-y-20 opacity-0'}
       `}
     >
       <div className="container mx-auto px-4 lg:px-8">
-        <h2 className="text-gray-900 text-2xl md:text-3xl lg:text-4xl font-extrabold mb-12 text-left">
-          Services We Provided
-        </h2>
+        {/* NEW HEADING DESIGN */}
+        <div className="flex flex-col items-center mb-12 text-center">
+          <h2 className="text-3xl md:text-4xl font-extrabold text-gray-900 mb-2">
+            Services We Provide
+          </h2>
+          <div className="w-24 h-1 bg-orange-300 rounded-full"></div>
+        </div>
 
         <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-8">
           {services.map((service, index) => (
@@ -123,9 +118,7 @@ export const ServicesSection = () => {
               className="bg-white p-6 rounded-2xl shadow-md flex flex-col justify-start border border-gray-100 min-h-[300px] transition-all duration-300 hover:shadow-xl hover:-translate-y-2 group"
             >
               <div className="flex items-start w-full mb-4">
-                {/* Icon wrapper with hover background and padding */}
                 <div className="p-3 rounded-lg transition-colors duration-300 group-hover:bg-blue-600 flex items-center justify-center">
-                  {/* React.cloneElement is used to add group-hover:text-white to the icon component itself */}
                   {React.cloneElement(service.icon, {
                     className: `${service.icon.props.className} group-hover:text-white`
                   })}

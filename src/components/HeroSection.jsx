@@ -1,5 +1,6 @@
 import React from 'react'; // Removed useState, useEffect, useRef as they are no longer needed for animation
 
+
 export const HeroSection = () => {
   return (
     <div className="relative flex flex-col items-center lg:items-start text-center lg:text-left lg:w-1/2 p-4 md:p-0">

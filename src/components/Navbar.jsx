@@ -1,9 +1,9 @@
-import React, { useRef, useState } from 'react'; // FIXED: Removed '=>' here
+import React, { useRef, useState } from 'react';
 import logo from '../assets/logo.png';
 
 export const Navbar = ({ currentActiveSection }) => {
   const navbarRef = useRef(null);
-  const [isMobileMenuOpen, setIsMobileMenuOpen] = useState(false); // State for mobile menu
+  const [isMobileMenuOpen, setIsMobileMenuOpen] = useState(false);
 
   const handleScroll = (id) => {
     const element = document.getElementById(id);
@@ -23,37 +23,29 @@ export const Navbar = ({ currentActiveSection }) => {
     } else {
       console.warn(`Could not find element with ID: ${id}.`);
     }
-    setIsMobileMenuOpen(false); // Close mobile menu after clicking a link
+    setIsMobileMenuOpen(false);
   };
 
-  // Define your navigation links and their corresponding section IDs
-  // IMPORTANT: Ensure these IDs match the actual 'id' attributes of your sections in LandingPage.jsx
   const navLinks = [
     { name: 'Home', id: 'hero-section' },
     { name: 'About', id: 'about-section' },
     { name: 'Services', id: 'services-section' },
-    { name: 'Why Choose Us', id: 'why-choose-us-section' },
-    { name: 'Packages', id: 'packages-section' },
-    { name: 'Reviews', id: 'reviews-section' },
-    { name: 'FAQs', id: 'faq-section' },
-    { name: 'Contact', id: 'contact-us-section' }, // Moved here: after FAQs
-    { name: 'Our Team', id: 'team-section' },     // Moved here: last
+    { name: 'Our Team', id: 'team-section' },
   ];
 
-
   return (
-    <nav ref={navbarRef} className="sticky top-0 z-50 w-full bg-white shadow-sm py-4 md:py-6">
-      <div className="container mx-auto flex flex-col md:flex-row items-center justify-between px-4 lg:px-8">
-        {/* Logo */}
-        <div className="flex items-center mb-4 md:mb-0">
+    <nav ref={navbarRef} className="sticky top-0 z-50 w-full bg-white shadow-sm py-1 md:py-2">
+      <div className="container mx-auto flex flex-col md:flex-row items-center justify-between px-4 lg:px-8 max-w-5xl">
+        {/* Logo - h-20 remains. flex-shrink-0 is good here. */}
+        <div className="flex items-center mb-4 md:mb-0 flex-shrink-0">
           <img
             src={logo}
             alt="GEO HOLIDAYS Logo"
-            className="h-14"
+            className="h-20"
           />
         </div>
 
-        {/* Desktop Navigation - Links have more space (space-x-6) */}
+        {/* Desktop Navigation Links - flex-grow on this div pushes the button right */}
         <div className="hidden md:flex flex-grow justify-center space-x-6">
           {navLinks.map((link) => (
             <NavLink
@@ -67,10 +59,14 @@ export const Navbar = ({ currentActiveSection }) => {
           ))}
         </div>
 
-        {/* Book Now Button (Desktop) */}
-        <div className="hidden md:flex ml-8">
-          <button className="px-8 py-2 rounded-lg bg-blue-800 text-white font-semibold shadow-md hover:bg-blue-700 transition-colors duration-200">
-            Book Now
+        {/* Contact Us Button (Desktop) - ml-8 ensures gap from links. flex-shrink-0 is good. */}
+        {/* Line 53: Added onClick to scroll to contact-us-section */}
+        <div className="hidden md:flex ml-8 flex-shrink-0">
+          <button
+            onClick={() => handleScroll('contact-us-section')}
+            className="px-8 py-2 rounded-lg bg-blue-800 text-white font-semibold shadow-md hover:bg-blue-700 transition-colors duration-200"
+          >
+            Contact Us
           </button>
         </div>
 
@@ -102,10 +98,14 @@ export const Navbar = ({ currentActiveSection }) => {
               {link.name}
             </NavLink>
           ))}
-          {/* Mobile Book Now Button */}
+          {/* Mobile Contact Us Button */}
+          {/* Line 80: Added onClick to scroll to contact-us-section */}
           <div className="px-4 py-2">
-            <button className="w-full px-8 py-2 rounded-lg bg-blue-800 text-white font-semibold shadow-md hover:bg-blue-700 transition-colors duration-200">
-              Book Now
+            <button
+              onClick={() => handleScroll('contact-us-section')}
+              className="w-full px-8 py-2 rounded-lg bg-blue-800 text-white font-semibold shadow-md hover:bg-blue-700 transition-colors duration-200"
+            >
+              Contact Us
             </button>
           </div>
         </div>

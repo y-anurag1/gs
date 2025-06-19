@@ -1,8 +1,7 @@
 import React, { useRef, useState, useEffect } from 'react';
-import { Phone, Mail, MessageSquare, Briefcase, Globe } from 'lucide-react'; // Example icons for contact details/services
+import { MapPin, Phone, Mail, Clock } from 'lucide-react';
 
 export const ContactUsSection = () => {
-  // Scroll animation state and ref for the whole section
   const sectionRef = useRef(null);
   const [hasAnimated, setHasAnimated] = useState(false);
 
@@ -33,57 +32,66 @@ export const ContactUsSection = () => {
 
   return (
     <section
-      id="contact-section" // ID for navbar scrolling
+      id="contact-us-section"
       ref={sectionRef}
       className={`bg-blue-50 py-16 md:py-24 transition-all duration-1000 ease-out
         ${hasAnimated ? 'translate-y-0 opacity-100' : 'translate-y-20 opacity-0'}
       `}
     >
       <div className="container mx-auto px-4 lg:px-8">
+        {/* Main Heading for the Contact Us section */}
+        {/* NEW HEADING DESIGN - Centered in its container */}
+        <div className="flex flex-col items-center mb-12 text-center">
+          <h2 className="text-3xl md:text-4xl font-extrabold text-gray-900 mb-2">
+            Contact Us
+          </h2>
+          <div className="w-24 h-1 bg-orange-300 rounded-full"></div>
+        </div>
+
         <div className="flex flex-col lg:flex-row gap-12 lg:gap-16">
-          {/* Left Column: Contact Information and Sub-sections */}
-          <div className="lg:w-1/2 text-gray-800">
-            <h2 className="text-4xl md:text-5xl font-extrabold mb-4">
-              Contact Us
-            </h2>
-            <p className="text-lg text-gray-600 mb-6">
-              Email, call, or complete the form to learn how GeoHolidays can solve your travel needs.
+          {/* Contact Info */}
+          <div className="lg:w-1/2 bg-white p-8 rounded-xl shadow-lg border border-gray-200 flex flex-col justify-center">
+            {/* The individual "Get in Touch" heading within this column is kept for local context, but without the underline */}
+            <h3 className="text-2xl font-bold text-gray-900 mb-6">Get in Touch</h3>
+            <p className="text-gray-700 mb-6 leading-relaxed">
+              Have questions or need assistance? Reach out to us, and our friendly team will be happy to help.
             </p>
-
-            <div className="mb-8">
-              <p className="text-xl font-semibold flex items-center mb-2">
-                <Mail className="w-5 h-5 text-blue-600 mr-2" /> info@geoholidays.in {/* Updated Email */}
-              </p>
-              <p className="text-xl font-semibold flex items-center mb-2">
-                <Phone className="w-5 h-5 text-blue-600 mr-2" /> +91 78801 70012 {/* Updated Phone */}
-              </p>
-              <a href="#" className="text-blue-600 hover:underline font-medium text-sm mt-1 inline-block">Customer Support</a>
-            </div>
-
-            {/* Three Sub-sections */}
-            <div className="grid grid-cols-1 md:grid-cols-3 gap-8">
-              <div>
-                <h3 className="text-lg font-semibold text-gray-900 mb-2">Customer Support</h3>
-                <p className="text-gray-600 text-sm leading-relaxed">
-                  Our support team is available around the clock to address any concerns or queries you may have.
-                </p>
+            <div className="space-y-4">
+              <div className="flex items-start text-gray-700">
+                <MapPin className="w-6 h-6 text-blue-600 mr-4 flex-shrink-0" />
+                <div>
+                  <p className="font-semibold">Our Address</p>
+                  <address className="not-italic text-sm">
+                    Office No 34, Maple High Street, Narmadapuram Rd, in front of Aashima Mall, Danish Nagar, Bagmugaliya, Bhopal, Madhya Pradesh 462042
+                  </address>
+                </div>
               </div>
-              <div>
-                <h3 className="text-lg font-semibold text-gray-900 mb-2">Feedback and Suggestions</h3>
-                <p className="text-gray-600 text-sm leading-relaxed">
-                  We value your feedback and are continually working to improve GeoHolidays. Your input is crucial in shaping the future of travel.
-                </p>
+              <div className="flex items-start text-gray-700">
+                <Phone className="w-6 h-6 text-blue-600 mr-4 flex-shrink-0" />
+                <div>
+                  <p className="font-semibold">Call Us</p>
+                  <p className="text-sm">+91 78801 70012</p>
+                </div>
               </div>
-              <div>
-                <h3 className="text-lg font-semibold text-gray-900 mb-2">Media Inquiries</h3>
-                <p className="text-gray-600 text-sm leading-relaxed">
-                  For media-related questions or press inquiries, please contact us at media@geoholidays.com.
-                </p>
+              <div className="flex items-start text-gray-700">
+                <Mail className="w-6 h-6 text-blue-600 mr-4 flex-shrink-0" />
+                <div>
+                  <p className="font-semibold">Email Us</p>
+                  <p className="text-sm">info@geoholidays.in</p>
+                </div>
+              </div>
+              <div className="flex items-start text-gray-700">
+                <Clock className="w-6 h-6 text-blue-600 mr-4 flex-shrink-0" />
+                <div>
+                  <p className="font-semibold">Opening Hours</p>
+                  <p className="text-sm">Mon-Sat: 10AM - 6PM</p>
+                  <p className="text-sm">Sunday: Closed</p>
+                </div>
               </div>
             </div>
           </div>
 
-          {/* Right Column: Contact Form */}
+          {/* Contact Form */}
           <div className="lg:w-1/2 bg-white p-8 md:p-10 rounded-2xl shadow-xl">
             <h3 className="text-3xl font-extrabold text-gray-900 mb-2">Get in Touch</h3>
             <p className="text-gray-600 mb-6">You can reach us anytime</p>
