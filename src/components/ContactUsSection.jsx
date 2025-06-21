@@ -3,6 +3,7 @@ import { MapPin, Phone, Mail, Clock } from 'lucide-react';
 
 export const ContactUsSection = () => {
   const sectionRef = useRef(null);
+  // Removed the extraneous 's' character here
   const [hasAnimated, setHasAnimated] = useState(false);
   const [agreedToTerms, setAgreedToTerms] = useState(false); // New state for the checkbox
 
@@ -66,8 +67,9 @@ export const ContactUsSection = () => {
 
         {/* Unified Container for Contact Info and Form */}
         <div className="bg-white rounded-3xl shadow-lg p-6 md:p-10 flex flex-col lg:flex-row gap-8 lg:gap-12">
-          {/* Contact Info */}
+          {/* Contact Info - Reduced items to Address and Opening Hours */}
           <div className="lg:w-1/2 flex flex-col justify-center">
+            <h3 className="text-2xl font-bold text-gray-900 mb-6">Get in Touch</h3>
             <p className="text-gray-700 mb-6 leading-relaxed">
               Have questions or need assistance? Reach out to us, and our friendly team will be happy to help.
             </p>
@@ -81,20 +83,7 @@ export const ContactUsSection = () => {
                   </address>
                 </div>
               </div>
-              <div className="flex items-start text-gray-700">
-                <Phone className="w-6 h-6 text-blue-600 mr-4 flex-shrink-0" />
-                <div>
-                  <p className="font-semibold">Call Us</p>
-                  <p className="text-sm">+91 78801 70012</p>
-                </div>
-              </div>
-              <div className="flex items-start text-gray-700">
-                <Mail className="w-6 h-6 text-blue-600 mr-4 flex-shrink-0" />
-                <div>
-                  <p className="font-semibold">Email Us</p>
-                  <p className="text-sm">info@geoholidays.in</p>
-                </div>
-              </div>
+              {/* Removed Phone and Mail sections from here */}
               <div className="flex items-start text-gray-700">
                 <Clock className="w-6 h-6 text-blue-600 mr-4 flex-shrink-0" />
                 <div>
@@ -192,8 +181,6 @@ export const ContactUsSection = () => {
                 Submit
               </button>
             </form>
-
-            {/* Removed redundant text below the button as it's now part of the checkbox label */}
           </div>
         </div>
       </div>

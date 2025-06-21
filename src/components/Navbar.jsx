@@ -44,22 +44,19 @@ export const Navbar = ({ currentActiveSection, navigateTo }) => { // Receive nav
   ];
 
   return (
-    <nav ref={navbarRef} className="sticky top-0 z-50 w-full bg-white shadow-sm py-1 md:py-2">
+    <nav ref={navbarRef} className="sticky top-0 z-50 w-full bg-white shadow-sm py-0"> {/* Reduced padding to py-0 */}
       <div className="flex flex-col md:flex-row items-center justify-between px-8 lg:px-24">
         {/* Logo - clicking logo should go to home page (hero section) */}
         <div className="flex items-center mb-4 md:mb-0 flex-shrink-0 cursor-pointer" onClick={() => handleScroll('hero-section')}>
           <img
             src={logo}
             alt="GEO HOLIDAYS Logo"
-            // Increased logo size from h-20 to h-24
-            className="h-24"
+            className="h-28" // Logo size remains h-28
           />
         </div>
 
         {/* Desktop Navigation Links */}
-        {/* Adjusted space-x-8 to provide more visual separation if needed,
-            and font size increased for links directly in NavLink component */}
-        <div className="hidden md:flex flex-grow justify-center space-x-10"> {/* Increased space-x for desktop links */}
+        <div className="hidden md:flex flex-grow justify-center space-x-10">
           {navLinks.map((link) => (
             <NavLink
               key={link.id}
@@ -130,8 +127,7 @@ const NavLink = ({ href, children, onClick, isActive, className = "" }) => (
   <a
     href={href}
     onClick={(e) => { e.preventDefault(); onClick(); }}
-    // Increased font size from font-medium to text-lg font-semibold
-    className={`relative text-lg font-semibold transform transition-all duration-200 group
+    className={`relative text-base text-gray-800 font-medium transform transition-all duration-200 group
       ${isActive ? 'text-blue-600' : 'hover:text-blue-600'}
       ${className}
     `}

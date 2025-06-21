@@ -11,42 +11,42 @@ export const TestimonialsSection = () => {
       id: 1,
       text: "GeoHolidays transformed my travel dreams into an unforgettable reality. Their attention to detail and personalized itinerary made my trip to Goa absolutely seamless and joyous. Highly recommended for anyone seeking a hassle-free and memorable vacation!",
       author: "Priya Sharma",
-      date: "May 15, 2024",
+      date: "May 15, 2024", // Date data still exists but won't be rendered
       image: "https://placehold.co/60x60/E0F2F7/000000?text=PS",
     },
     {
       id: 2,
       text: "The Jaipur package from GeoHolidays was simply incredible. Every aspect, from the luxurious stay to the cultural excursions, was perfectly curated. My family had an amazing time, and we truly appreciate their professional and friendly service.",
       author: "Rajesh Kumar",
-      date: "April 28, 2024",
+      date: "April 28, 2024", // Date data still exists but won't be rendered
       image: "https://placehold.co/60x60/E0F7E0/000000?text=RK",
     },
     {
       id: 3,
       text: "Our corporate MICE event handled by GeoHolidays in Agra was executed flawlessly. The logistics, venue management, and sight-seeing arrangements were top-notch. Their team truly understands corporate travel needs.",
       author: "Smita Singh",
-      date: "March 10, 2024",
+      date: "March 10, 2024", // Date data still exists but won't be rendered
       image: "https://placehold.co/60x60/F7F2E0/000000?text=SS",
     },
     {
       id: 4,
       text: "I was looking for a custom itinerary for a solo adventure, and GeoHolidays exceeded my expectations. They listened to my preferences and designed a unique trip that perfectly matched my desires. Truly a bespoke travel experience!",
       author: "Amit Patel",
-      date: "Feb 01, 2024",
+      date: "Feb 01, 2024", // Date data still exists but won't be rendered
       image: "https://placehold.co/60x60/F2E0F7/000000?text=AP",
     },
     {
       id: 5,
       text: "The Ladakh bike trip was an absolute thrill! GeoHolidays handled everything, from bike rentals to permits and accommodations, allowing us to just focus on the adventure. Impeccable planning!",
       author: "Rahul Varma",
-      date: "Jan 20, 2024",
+      date: "Jan 20, 2024", // Date data still exists but won't be rendered
       image: "https://placehold.co/60x60/CCE5FF/000000?text=RV",
     },
     {
       id: 6,
       text: "My honeymoon in the Maldives was a dream come true, thanks to GeoHolidays. The overwater villa, private dinners, and seamless transfers made it truly magical. They took care of every little detail.",
       author: "Neha Reddy",
-      date: "Dec 05, 2023",
+      date: "Dec 05, 2023", // Date data still exists but won't be rendered
       image: "https://placehold.co/60x60/FFCCE5/000000?text=NR",
     },
   ];
@@ -170,11 +170,10 @@ export const TestimonialsSection = () => {
                 <p className="text-xs text-gray-700 leading-relaxed flex-grow mb-4 relative z-10">
                   {testimonial.text}
                 </p>
-                {/* Moved name and date to the right */}
-                {/* Changed `text-center` to `text-right` */}
+                {/* Moved name to the right - Removed the date paragraph */}
                 <div className="relative z-10 mt-auto w-full text-right">
                   <h3 className="text-sm font-semibold text-gray-900 leading-tight">{testimonial.author}</h3>
-                  <p className="text-xs text-gray-500">{testimonial.date}</p>
+                  {/* Removed: <p className="text-xs text-gray-500">{testimonial.date}</p> */}
                 </div>
               </div>
             </div>

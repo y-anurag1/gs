@@ -79,22 +79,23 @@ export const StatsSection = () => {
 
 
   return (
-    // Reverting to previous section background and padding
-    <section id="stats-section" ref={sectionRef} className="bg-blue-50 py-12 md:py-20 text-gray-800">
+    // Changed background color to match CTA section's gradient
+    <section
+      id="stats-section"
+      ref={sectionRef}
+      className="bg-gradient-to-br from-blue-100 to-orange-100 py-12 md:py-20 text-gray-800"
+    >
       <div className="container mx-auto px-4 lg:px-8 text-center">
-        {/* Reverting to previous heading */}
+        {/* Changed heading text from "Strategic Solutions" to "Strategic Experience" */}
         <h2 className="text-gray-900 text-2xl md:text-3xl lg:text-4xl font-extrabold mb-6">
-          Strategic Solutions for<span className="text-orange-500"> MICE</span> Travel
+          Strategic Experience for<span className="text-orange-500"> MICE</span> Travel
         </h2>
 
-        {/* Reverting to previous grid gap */}
         <div className="grid grid-cols-1 md:grid-cols-3 gap-6 md:gap-8">
           <div className="bg-white p-3 rounded-xl shadow-lg flex flex-col items-center border border-gray-100">
-            {/* Numbers made much smaller */}
             <p className="text-blue-800 text-xl md:text-2xl lg:text-3xl font-bold mb-0.5">
               {yearsExperience}+
             </p>
-            {/* Description font size kept as before */}
             <p className="text-sm md:text-base text-gray-700">Years Experience</p>
           </div>
 

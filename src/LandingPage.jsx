@@ -16,13 +16,13 @@ import { TestimonialsSection } from './components/TestimonialsSection';
 export const LandingPage = ({ setSectionRef, navigateTo }) => {
   const sectionContentOrder = [
     { id: 'hero-section', component: HeroSection },
-    { id: 'stats-section', component: StatsSection },
-    { id: 'about-section', component: AboutUsSection }, // Add AboutUsSection here
-    { id: 'services-section', component: ServicesSection },
+    { id: 'about-section', component: AboutUsSection },
     { id: 'why-choose-us-section', component: WhyChooseUsSection },
-    { id: 'testimonials-section', component: TestimonialsSection },
-    { id: 'faq-section', component: FAQSection },
+    { id: 'services-section', component: ServicesSection },
+    { id: 'stats-section', component: StatsSection },
     { id: 'team-section', component: TeamSection },
+    { id: 'faq-section', component: FAQSection },
+    { id: 'testimonials-section', component: TestimonialsSection },
     { id: 'cta-section', component: CTASection },
     { id: 'contact-us-section', component: ContactUsSection },
     { id: 'footer-section', component: Footer },

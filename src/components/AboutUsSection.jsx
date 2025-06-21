@@ -45,17 +45,25 @@ export const AboutUsSection = () => {
           transition-all duration-1000 ease-out
           ${hasAnimated ? 'translate-y-0 opacity-100' : 'translate-y-20 opacity-0'}`}
       >
-        {/* Left Content Area - Centered */}
-        <div className="lg:w-5/12 text-center mx-auto">
-          <p className="text-sm font-bold text-rose-500 uppercase mb-2">A BIT</p>
-          <h2 className="text-4xl md:text-5xl font-extrabold text-gray-900 mb-6">About Us</h2>
-          <p className="text-gray-600 mb-8 max-w-md mx-auto">
+        {/* Left Content Area - Left aligned, updated heading style */}
+        <div className="lg:w-5/12 text-left"> {/* Changed to text-left, removed mx-auto */}
+          {/* Main Heading for About Us - Centered within its own column, with underline */}
+          <div className="flex flex-col items-start mb-6"> {/* Changed to items-start for left alignment */}
+            <h2 className="text-3xl md:text-4xl font-extrabold text-gray-900 mb-2"> {/* Match FAQ/Team heading size */}
+              About Us
+            </h2>
+            <div className="w-24 h-1 bg-orange-300 rounded-full"></div> {/* Orange underline */}
+          </div>
+
+          <p className="text-gray-600 mb-4 max-w-md"> {/* Adjusted mb */}
             From they fine john he give at rich he. They age and draw mrs like. Improving and distrusts may instantly was household applauded incommode. Why kept very ever home mrs. Considered sympathize ten uncommonly occasional assistance sufficient not.
           </p>
-          {/* --- Button color remains blue-800 --- */}
-          <button className="px-8 py-3 rounded-lg bg-blue-800 text-white font-semibold shadow-md hover:bg-blue-700 transition-colors duration-300">
-            EXPLORE MORE
-          </button>
+          {/* New placeholder paragraph */}
+          <p className="text-gray-600 mb-8 max-w-md">
+            Our commitment is to provide unparalleled service and curate experiences that leave lasting memories. We believe in crafting journeys that go beyond mere travel, fostering genuine connections and unforgettable adventures.
+          </p>
+
+          {/* Removed EXPLORE MORE button */}
         </div>
 
         {/* SECTION 2: IMAGE COLLAGE - Non-overlapping Grid Layout */}
@@ -88,7 +96,6 @@ export const AboutUsSection = () => {
           </div>
 
           {/* "10+ Places" overlay box - Changed to gradient background */}
-          {/* Used the same gradient as CTASection and set text to a darker shade for visibility */}
           <div className="col-span-1 row-span-1 bg-gradient-to-br from-blue-100 to-orange-100 rounded-2xl flex items-center justify-center p-4 text-gray-800 shadow-2xl">
             <span className="text-3xl md:text-4xl font-bold text-center leading-tight">
               10+ <br/> Places
