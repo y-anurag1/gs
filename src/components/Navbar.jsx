@@ -1,29 +1,39 @@
 import React, { useRef, useState } from 'react';
 import logo from '../assets/logo.png';
 
-export const Navbar = ({ currentActiveSection }) => {
+export const Navbar = ({ currentActiveSection, navigateTo }) => { // Receive navigateTo prop
   const navbarRef = useRef(null);
   const [isMobileMenuOpen, setIsMobileMenuOpen] = useState(false);
 
+  // Modified handleScroll to work with page navigation
   const handleScroll = (id) => {
-    const element = document.getElementById(id);
-    const navbarHeight = navbarRef.current ? navbarRef.current.offsetHeight : 0;
-
-    if (id === 'hero-section') {
-      window.scrollTo({
-        top: 0,
-        behavior: 'smooth'
-      });
-    } else if (element) {
-      const offsetTop = element.offsetTop - navbarHeight;
-      window.scrollTo({
-        top: offsetTop,
-        behavior: 'smooth'
-      });
+    // If the ID is 'contact-us-section', navigate to the contact page
+    if (id === 'contact-us-section') {
+      navigateTo('contact');
     } else {
-      console.warn(`Could not find element with ID: ${id}.`);
+      // Otherwise, ensure we are on the home page and then scroll to the section
+      navigateTo('home');
+      // A small delay ensures the home page renders before attempting to scroll
+      setTimeout(() => {
+        const element = document.getElementById(id);
+        const navbarHeight = navbarRef.current ? navbarRef.current.offsetHeight : 0;
+        if (id === 'hero-section') {
+          window.scrollTo({
+            top: 0,
+            behavior: 'smooth'
+          });
+        } else if (element) {
+          const offsetTop = element.offsetTop - navbarHeight;
+          window.scrollTo({
+            top: offsetTop,
+            behavior: 'smooth'
+          });
+        } else {
+          console.warn(`Could not find element with ID: ${id}.`);
+        }
+      }, 100); // Short delay
     }
-    setIsMobileMenuOpen(false);
+    setIsMobileMenuOpen(false); // Close mobile menu after click
   };
 
   const navLinks = [
@@ -35,10 +45,9 @@ export const Navbar = ({ currentActiveSection }) => {
 
   return (
     <nav ref={navbarRef} className="sticky top-0 z-50 w-full bg-white shadow-sm py-1 md:py-2">
-      {/* Changed px-8 lg:px-16 to px-8 lg:px-24 to match hero-section's horizontal padding */}
       <div className="flex flex-col md:flex-row items-center justify-between px-8 lg:px-24">
-        {/* Logo */}
-        <div className="flex items-center mb-4 md:mb-0 flex-shrink-0">
+        {/* Logo - clicking logo should go to home page (hero section) */}
+        <div className="flex items-center mb-4 md:mb-0 flex-shrink-0 cursor-pointer" onClick={() => handleScroll('hero-section')}>
           <img
             src={logo}
             alt="GEO HOLIDAYS Logo"
@@ -46,8 +55,7 @@ export const Navbar = ({ currentActiveSection }) => {
           />
         </div>
 
-        {/* Desktop Navigation Links - Increased spacing between links */}
-        {/* Changed space-x-6 to space-x-8 for more padding */}
+        {/* Desktop Navigation Links */}
         <div className="hidden md:flex flex-grow justify-center space-x-8">
           {navLinks.map((link) => (
             <NavLink
@@ -61,10 +69,10 @@ export const Navbar = ({ currentActiveSection }) => {
           ))}
         </div>
 
-        {/* Contact Us Button (Desktop) */}
+        {/* Contact Us Button (Desktop) - Now triggers page navigation */}
         <div className="hidden md:flex flex-shrink-0">
           <button
-            onClick={() => handleScroll('contact-us-section')}
+            onClick={() => navigateTo('contact')} // Directly call navigateTo for the contact page
             className="px-8 py-2 rounded-lg bg-blue-800 text-white font-semibold shadow-md hover:bg-blue-700 transition-colors duration-200"
           >
             Contact Us
@@ -99,10 +107,10 @@ export const Navbar = ({ currentActiveSection }) => {
               {link.name}
             </NavLink>
           ))}
-          {/* Mobile Contact Us Button */}
+          {/* Mobile Contact Us Button - Now triggers page navigation */}
           <div className="px-4 py-2">
             <button
-              onClick={() => handleScroll('contact-us-section')}
+              onClick={() => navigateTo('contact')} // Directly call navigateTo for the contact page
               className="w-full px-8 py-2 rounded-lg bg-blue-800 text-white font-semibold shadow-md hover:bg-blue-700 transition-colors duration-200"
             >
               Contact Us

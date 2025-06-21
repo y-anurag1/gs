@@ -57,15 +57,14 @@ export const HeroSection = () => {
           Get ready to explore the new places and enjoy your life with full of adventure, take only memories that you spent and leave your footprints.
         </p>
         <div className="flex flex-col sm:flex-row space-y-4 sm:space-y-0 sm:space-x-4">
-          {/* Swapped button order and updated button content/icon */}
-          {/* Explore Trips Button (was second, now first, with new icon) */}
+       
           <button className="flex items-center justify-center px-8 py-3 rounded-lg border border-blue-600 text-blue-600 font-semibold hover:bg-blue-50 transition-colors duration-200">
-            <Compass className="w-5 h-5 mr-2" /> {/* Replaced generic SVG with Lucide Compass icon */}
+            <Compass className="w-5 h-5 mr-2" /> 
             Explore Trips
           </button>
-          {/* Plan Your Trip Button (was first, now second, with new icon) */}
+          
           <button className="flex items-center justify-center px-8 py-3 rounded-lg bg-blue-800 text-white font-semibold shadow-lg hover:bg-blue-700 transition-colors duration-200">
-            <CalendarDays className="w-5 h-5 mr-2" /> {/* Added Lucide CalendarDays icon */}
+            <CalendarDays className="w-5 h-5 mr-2" /> 
             Plan Your Trip
           </button>
         </div>
