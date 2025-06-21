@@ -1,8 +1,6 @@
 import React, { useRef, useState, useEffect } from 'react';
 import { Dot } from 'lucide-react'; // Using Dot icon for the button
 
-// Removed: import logo from '../assets/logo.png'; // No longer importing the image
-
 export const CTASection = () => {
   const sectionRef = useRef(null);
   const [hasAnimated, setHasAnimated] = useState(false);
@@ -54,13 +52,15 @@ export const CTASection = () => {
     <section
       id="cta-section"
       ref={sectionRef}
+      // Reverted vertical padding here: py-16 md:py-24 -> py-8 md:py-12
       className={`bg-white py-8 md:py-12 px-4 md:px-8 lg:px-12 transition-all duration-1000 ease-out
         ${hasAnimated ? 'translate-y-0 opacity-100' : 'translate-y-20 opacity-0'}
       `}
     >
       <div
+        // Width remains increased (max-w-7xl) as per previous request
         className="relative bg-gradient-to-br from-blue-100 to-orange-100 p-6 md:p-10 lg:p-12 rounded-xl shadow-lg
-                   max-w-6xl mx-auto overflow-hidden"
+                   max-w-7xl mx-auto overflow-hidden"
       >
         <div className="relative z-10 flex flex-col lg:flex-row items-start justify-between gap-8 lg:gap-32">
             {/* Left Column: SVG Vector */}
@@ -73,7 +73,6 @@ export const CTASection = () => {
             </div>
 
             {/* Right Column: Heading, Description, Button */}
-            {/* Added `flex flex-col` to allow button to be pushed right within this div */}
             <div className="text-left max-w-2xl flex flex-col">
               <h2
                 className="text-2xl sm:text-3xl md:text-4xl font-extrabold text-gray-900 mb-4 leading-tight"
@@ -81,19 +80,12 @@ export const CTASection = () => {
                 Wanna accelerate your business through travel?
               </h2>
               <p
-                className="text-sm md:text-base text-gray-700 mb-6 leading-relaxed flex-grow" // Added flex-grow to push button down
+                className="text-sm md:text-base text-gray-700 mb-6 leading-relaxed flex-grow"
               >
                 Let's have a virtual coffee and chat about your goals &gt; and how our processes can help achieve them.
               </p>
-              {/* Let's Connect Button - Styled to match Navbar button, and pushed to the right */}
               <button
                 onClick={handleScrollToContact}
-                // --- Changes here ---
-                // py-4 to py-2 (smaller vertical padding)
-                // rounded-xl to rounded-lg (less rounded corners)
-                // font-medium to font-semibold (bolder text)
-                // Added ml-auto to push it to the right
-                // Ensured text-base for font size matches navbar
                 className="inline-flex items-center px-8 py-2 rounded-lg bg-blue-800 text-white font-semibold text-base shadow-md hover:bg-blue-700 transition-colors duration-200 focus:outline-none focus:ring-2 focus:ring-blue-500 focus:ring-offset-2 ml-auto"
               >
                 <Dot className="w-6 h-6 mr-2 fill-current" />

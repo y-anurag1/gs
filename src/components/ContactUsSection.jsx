@@ -4,6 +4,7 @@ import { MapPin, Phone, Mail, Clock } from 'lucide-react';
 export const ContactUsSection = () => {
   const sectionRef = useRef(null);
   const [hasAnimated, setHasAnimated] = useState(false);
+  const [agreedToTerms, setAgreedToTerms] = useState(false); // New state for the checkbox
 
   useEffect(() => {
     const observer = new IntersectionObserver(
@@ -30,6 +31,22 @@ export const ContactUsSection = () => {
     };
   }, [hasAnimated]);
 
+  // Handle checkbox change
+  const handleCheckboxChange = (e) => {
+    setAgreedToTerms(e.target.checked);
+  };
+
+  // Dummy handleSubmit for demonstration (you'd integrate actual form submission logic here)
+  const handleSubmit = (e) => {
+    e.preventDefault();
+    if (agreedToTerms) {
+      alert('Form submitted! (This is a dummy submission)');
+      // Add your actual form submission logic here, e.g., API call
+    } else {
+      alert('Please agree to the Terms of service and Privacy Policy.');
+    }
+  };
+
   return (
     <section
       id="contact-us-section"
@@ -40,7 +57,6 @@ export const ContactUsSection = () => {
     >
       <div className="container mx-auto px-4 lg:px-8">
         {/* Main Heading for the Contact Us section */}
-        {/* NEW HEADING DESIGN - Centered in its container */}
         <div className="flex flex-col items-center mb-12 text-center">
           <h2 className="text-3xl md:text-4xl font-extrabold text-gray-900 mb-2">
             Contact Us
@@ -48,11 +64,10 @@ export const ContactUsSection = () => {
           <div className="w-24 h-1 bg-orange-300 rounded-full"></div>
         </div>
 
-        <div className="flex flex-col lg:flex-row gap-12 lg:gap-16">
+        {/* Unified Container for Contact Info and Form */}
+        <div className="bg-white rounded-3xl shadow-lg p-6 md:p-10 flex flex-col lg:flex-row gap-8 lg:gap-12">
           {/* Contact Info */}
-          <div className="lg:w-1/2 bg-white p-8 rounded-xl shadow-lg border border-gray-200 flex flex-col justify-center">
-            {/* The individual "Get in Touch" heading within this column is kept for local context, but without the underline */}
-            <h3 className="text-2xl font-bold text-gray-900 mb-6">Get in Touch</h3>
+          <div className="lg:w-1/2 flex flex-col justify-center">
             <p className="text-gray-700 mb-6 leading-relaxed">
               Have questions or need assistance? Reach out to us, and our friendly team will be happy to help.
             </p>
@@ -92,11 +107,11 @@ export const ContactUsSection = () => {
           </div>
 
           {/* Contact Form */}
-          <div className="lg:w-1/2 bg-white p-8 md:p-10 rounded-2xl shadow-xl">
-            <h3 className="text-3xl font-extrabold text-gray-900 mb-2">Get in Touch</h3>
-            <p className="text-gray-600 mb-6">You can reach us anytime</p>
+          <div className="lg:w-1/2">
+            <h3 className="text-3xl font-extrabold text-gray-900 mb-2">Send us a message!</h3>
+            <p className="text-gray-600 mb-6">We usually respond within 24 hours.</p>
 
-            <form className="space-y-4">
+            <form onSubmit={handleSubmit} className="space-y-4"> {/* Added onSubmit handler */}
               <div className="grid grid-cols-1 sm:grid-cols-2 gap-4">
                 <input
                   type="text"
@@ -145,17 +160,40 @@ export const ContactUsSection = () => {
                 </select>
               </div>
 
+              <textarea
+                placeholder="Your Message"
+                rows="4"
+                className="w-full px-4 py-3 rounded-lg border border-gray-300 focus:ring-2 focus:ring-blue-500 focus:border-transparent transition-colors duration-200"
+              ></textarea>
+
+              {/* Terms and Conditions Checkbox */}
+              <div className="flex items-center mt-4">
+                <input
+                  type="checkbox"
+                  id="agreeToTerms"
+                  checked={agreedToTerms}
+                  onChange={handleCheckboxChange}
+                  className="h-4 w-4 text-blue-600 focus:ring-blue-500 border-gray-300 rounded"
+                />
+                <label htmlFor="agreeToTerms" className="ml-2 block text-sm text-gray-900">
+                  By contacting us, you agree to our{' '}
+                  <a href="#" className="text-blue-600 hover:underline">Terms of service</a> and{' '}
+                  <a href="#" className="text-blue-600 hover:underline">Privacy Policy</a>.
+                </label>
+              </div>
+
               <button
                 type="submit"
-                className="w-full px-8 py-3 rounded-lg bg-blue-800 text-white font-semibold shadow-lg hover:bg-blue-700 transition-colors duration-200"
+                disabled={!agreedToTerms} // Button is disabled if not agreedToTerms
+                className={`w-full px-8 py-3 rounded-lg text-white font-semibold shadow-lg transition-colors duration-200
+                  ${agreedToTerms ? 'bg-blue-800 hover:bg-blue-700' : 'bg-gray-400 cursor-not-allowed'}
+                `}
               >
                 Submit
               </button>
             </form>
 
-            <p className="text-gray-500 text-xs mt-6 text-center">
-              By contacting us, you agree to our <a href="#" className="text-blue-600 hover:underline">Terms of service</a> and <a href="#" className="text-blue-600 hover:underline">Privacy Policy</a>.
-            </p>
+            {/* Removed redundant text below the button as it's now part of the checkbox label */}
           </div>
         </div>
       </div>

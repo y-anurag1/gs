@@ -1,7 +1,7 @@
-import React, { useState, useEffect, useRef } from 'react';
+import React, { useState, useEffect, useRef, useCallback } from 'react';
 import { Navbar } from './components/Navbar';
-import { LandingPage } from './LandingPage'; // CORRECTED: Import LandingPage directly from src/
-import { ContactPage } from './components/ContactPage';   // This one is still in src/components/
+import { LandingPage } from './LandingPage';
+import { ContactPage } from './components/ContactPage';
 
 function App() {
   const [currentActiveSection, setCurrentActiveSection] = useState('hero-section');
@@ -11,15 +11,19 @@ function App() {
   const sectionRefs = useRef({});
 
   // Function to dynamically set refs for sections within LandingPage
-  const setSectionRef = (id) => (element) => {
-    sectionRefs.current[id] = element;
-  };
+  const setSectionRef = useCallback((id) => (element) => {
+    if (element) {
+      sectionRefs.current[id] = element;
+      // console.log(`Registered ref for: ${id}`, element); // For debugging
+    } else {
+      delete sectionRefs.current[id]; // Clean up ref when component unmounts
+      // console.log(`Unregistered ref for: ${id}`); // For debugging
+    }
+  }, []);
 
   // Effect to observe sections for active section highlighting in Navbar (only on home page)
   useEffect(() => {
-    // Only set up observer if we are on the 'home' page
     if (currentPage !== 'home') {
-      // Disconnect any existing observer if we switch away from home
       if (sectionRefs.current.observer) {
         sectionRefs.current.observer.disconnect();
       }
@@ -40,43 +44,56 @@ function App() {
       });
     }, observerOptions);
 
-    // Store the observer instance for cleanup
     sectionRefs.current.observer = observer;
 
     // Observe all registered sections
-    // Use Object.values to get array of elements from the ref object
     Object.values(sectionRefs.current).forEach((el) => {
-      if (el instanceof Element) { // Ensure it's a DOM element before observing
+      if (el instanceof Element) {
         observer.observe(el);
       }
     });
 
-    // Cleanup function
     return () => {
       if (sectionRefs.current.observer) {
         sectionRefs.current.observer.disconnect();
       }
     };
-  }, [currentPage]); // Rerun this effect when the current page changes
+  }, [currentPage]);
 
-  // Function to navigate between 'home' and 'contact' pages
-  const navigateTo = (page) => {
-    setCurrentPage(page);
-    // If navigating back to home, scroll to the top of the window
-    if (page === 'home') {
-      window.scrollTo({ top: 0, behavior: 'smooth' });
-      setCurrentActiveSection('hero-section'); // Reset active section to hero when returning home
+  // Function to navigate between 'home' and 'contact' pages OR to specific sections on 'home'
+  const navigateTo = useCallback((targetId) => {
+    if (targetId === 'contact') { // If navigating to the dedicated ContactPage
+      setCurrentPage('contact');
+    } else { // If navigating to a section on the home page
+      setCurrentPage('home'); // Ensure we are on the home page before attempting to scroll
+
+      // Add a small delay to ensure the DOM has rendered and refs are available
+      setTimeout(() => {
+        const element = sectionRefs.current[targetId];
+        const navbar = document.querySelector('nav');
+        const navbarHeight = navbar ? navbar.offsetHeight : 0;
+
+        if (targetId === 'hero-section') {
+            window.scrollTo({ top: 0, behavior: 'smooth' });
+        } else if (element) {
+            const offsetTop = element.offsetTop - navbarHeight;
+            window.scrollTo({
+                top: offsetTop,
+                behavior: 'smooth'
+            });
+        } else {
+            console.warn(`Could not find element with ID: ${targetId}.`);
+        }
+        setCurrentActiveSection(targetId); // Update active section for Navbar
+      }, 50); // A small delay (e.g., 50ms)
     }
-  };
+  }, []); // No dependencies that cause issues
 
   return (
     <div className="App">
-      {/* Navbar is always visible, it receives `navigateTo` to switch pages */}
       <Navbar currentActiveSection={currentActiveSection} navigateTo={navigateTo} />
-
-      {/* Conditionally render LandingPage (home content) or ContactPage */}
       {currentPage === 'home' ? (
-        <LandingPage setSectionRef={setSectionRef} /> // Pass setSectionRef to LandingPage
+        <LandingPage setSectionRef={setSectionRef} navigateTo={navigateTo} />
       ) : (
         <ContactPage />
       )}

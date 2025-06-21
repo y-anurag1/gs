@@ -84,7 +84,7 @@ export const StatsSection = () => {
       <div className="container mx-auto px-4 lg:px-8 text-center">
         {/* Reverting to previous heading */}
         <h2 className="text-gray-900 text-2xl md:text-3xl lg:text-4xl font-extrabold mb-6">
-          Strategic Solutions for<span className="text-orange-500"> MICE</span>  Travel
+          Strategic Solutions for<span className="text-orange-500"> MICE</span> Travel
         </h2>
 
         {/* Reverting to previous grid gap */}

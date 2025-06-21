@@ -1,5 +1,5 @@
 import React, { useState, useRef, useEffect } from 'react';
-import { Smile, FileText, CreditCard, X, Mail, Settings, Users, Video, Headset, Book, ExternalLink } from 'lucide-react';
+import { Smile, FileText, CreditCard, X, Mail, Settings, Users, Video, Headset, Book } from 'lucide-react';
 
 export const FAQSection = () => {
   const initialVisibleCount = 4; // Show only 4 initially
@@ -195,7 +195,6 @@ export const FAQSection = () => {
     <section
       id="faq-section"
       ref={sectionRef}
-      // Increased horizontal padding: px-4 md:px-8 lg:px-12 changed to px-8 md:px-16 lg:px-24
       className={`bg-white py-16 md:py-24 px-8 md:px-16 lg:px-24 transition-all duration-1000 ease-out
         ${hasAnimated ? 'translate-y-0 opacity-100' : 'translate-y-20 opacity-0'}
       `}
@@ -223,32 +222,18 @@ export const FAQSection = () => {
         `}
       </style>
       <div className="container mx-auto max-w-full">
-        {/* Main Heading and Subtitle - LEFT ALIGNED, with Documentation button */}
-        <div className="flex flex-col sm:flex-row sm:items-end sm:justify-between mb-12">
-          <div>
-            <h2 className="text-4xl md:text-5xl font-extrabold text-gray-900 mb-4 text-left">
-              Frequently Asked Questions
-            </h2>
-            <p className="text-lg text-gray-600 max-w-3xl text-left">
-              Quick answers to questions you may have. Can't find what you're looking for? Check out our full{' '}
-              <a href="#" className="text-blue-600 hover:underline">documentation</a>.
-            </p>
-          </div>
-          {/* Documentation Button */}
-          <div className="mt-6 sm:mt-0 flex-shrink-0">
-            <a
-              href="#"
-              target="_blank"
-              rel="noopener noreferrer"
-              className="inline-flex items-center px-6 py-3 border border-gray-300 rounded-lg text-gray-800 font-medium hover:bg-gray-50 transition-colors duration-200"
-            >
-              Documentation <ExternalLink className="w-4 h-4 ml-2" />
-            </a>
-          </div>
+        {/* Main Heading and Subtitle - CENTER ALIGNED, without Documentation button */}
+        <div className="flex flex-col items-center mb-12 text-center">
+          {/* Changed text size back to text-3xl md:text-4xl */}
+          <h2 className="text-3xl md:text-4xl font-extrabold text-gray-900 mb-2">
+            Frequently Asked Questions
+          </h2>
+          {/* Orange underline directly below the heading */}
+          <div className="w-24 h-1 bg-orange-300 rounded-full mb-8"></div>
+          {/* The description paragraph was already removed */}
         </div>
 
         {/* FAQ Cards Grid - Enclosed in a div to control height for peek effect */}
-        {/* Conditional height and overflow for the peek/show all effect */}
         <div
           ref={faqGridRef}
           className="relative grid grid-cols-1 md:grid-cols-2 gap-x-8 gap-y-6 faq-grid-container-transition"
@@ -258,7 +243,7 @@ export const FAQSection = () => {
             <div
               key={index}
               ref={(el) => (itemRefs.current[index] = el)}
-              className="bg-white rounded-lg shadow-sm opacity-0 transform translate-y-4" // Removed border
+              className="bg-white rounded-lg shadow-sm opacity-0 transform translate-y-4"
             >
               <div className="p-6">
                 <div className="flex items-start">

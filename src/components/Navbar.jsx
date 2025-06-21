@@ -51,12 +51,15 @@ export const Navbar = ({ currentActiveSection, navigateTo }) => { // Receive nav
           <img
             src={logo}
             alt="GEO HOLIDAYS Logo"
-            className="h-20"
+            // Increased logo size from h-20 to h-24
+            className="h-24"
           />
         </div>
 
         {/* Desktop Navigation Links */}
-        <div className="hidden md:flex flex-grow justify-center space-x-8">
+        {/* Adjusted space-x-8 to provide more visual separation if needed,
+            and font size increased for links directly in NavLink component */}
+        <div className="hidden md:flex flex-grow justify-center space-x-10"> {/* Increased space-x for desktop links */}
           {navLinks.map((link) => (
             <NavLink
               key={link.id}
@@ -127,7 +130,8 @@ const NavLink = ({ href, children, onClick, isActive, className = "" }) => (
   <a
     href={href}
     onClick={(e) => { e.preventDefault(); onClick(); }}
-    className={`relative text-gray-700 font-medium transform transition-all duration-200 group
+    // Increased font size from font-medium to text-lg font-semibold
+    className={`relative text-lg font-semibold transform transition-all duration-200 group
       ${isActive ? 'text-blue-600' : 'hover:text-blue-600'}
       ${className}
     `}
