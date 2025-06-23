@@ -54,10 +54,12 @@ export const Footer = () => {
             <img src={logo} alt="GEO HOLIDAYS Logo" className="h-28 mb-4" /> {/* Increased logo size to h-28 */}
             <p className="text-sm text-gray-600 mt-2 max-w-[200px] mx-auto sm:mx-0">Your journey, our expertise.</p>
             <div className="flex space-x-4 mt-4">
-              <a href="#" target="_blank" rel="noopener noreferrer" className="text-gray-500 hover:text-blue-600 transition-colors duration-200">
+              {/* Instagram Icon with updated link */}
+              <a href="https://www.instagram.com/geoholidays_?igsh=MTE1MXluNzV3aHF6Zw==" target="_blank" rel="noopener noreferrer" className="text-gray-500 hover:text-blue-600 transition-colors duration-200">
                 <Instagram className="w-6 h-6" />
               </a>
-              <a href="#" target="_blank" rel="noopener noreferrer" className="text-gray-500 hover:text-blue-600 transition-colors duration-200">
+              {/* Facebook Icon with updated link */}
+              <a href="https://www.facebook.com/share/1AB33Ktwmi/" target="_blank" rel="noopener noreferrer" className="text-gray-500 hover:text-blue-600 transition-colors duration-200">
                 <Facebook className="w-6 h-6" />
               </a>
               {/* WhatsApp Icon - Replaced with Bootstrap SVG */}

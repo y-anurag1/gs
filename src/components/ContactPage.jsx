@@ -148,21 +148,17 @@ export const ContactPage = () => {
                   <Phone className="w-6 h-6 mr-3 text-gray-900" />
                   <div className="flex flex-col text-sm">
                     <span className="font-semibold uppercase">PHONE</span>
-                    <span className="text-gray-500">03 5432 1234</span>
+                    <span className="text-gray-500">+91 7880170012</span>
                   </div>
                 </div>
                 <div className="flex items-center text-gray-700">
-                  <Printer className="w-6 h-6 mr-3 text-gray-900" />
-                  <div className="flex flex-col text-sm">
-                    <span className="font-semibold uppercase">FAX</span>
-                    <span className="text-gray-500">03 5432 1234</span>
-                  </div>
+                  
                 </div>
                 <div className="flex items-center text-gray-700">
                   <Mail className="w-6 h-6 mr-3 text-gray-900" />
                   <div className="flex flex-col text-sm">
                     <span className="font-semibold uppercase">EMAIL</span>
-                    <span className="text-gray-500">info@marcc.com.au</span>
+                    <span className="text-gray-500">info@geoholidays.in</span>
                   </div>
                 </div>
               </div>
