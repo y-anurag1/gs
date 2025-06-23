@@ -56,11 +56,11 @@ export const AboutUsSection = () => {
           </div>
 
           <p className="text-gray-600 mb-4 max-w-md"> {/* Adjusted mb */}
-            From they fine john he give at rich he. They age and draw mrs like. Improving and distrusts may instantly was household applauded incommode. Why kept very ever home mrs. Considered sympathize ten uncommonly occasional assistance sufficient not.
-          </p>
+At Geo Holidays, we specialize in delivering seamless MICE (Meetings, Incentives, Conferences, and Exhibitions) travel experiences tailored to the unique needs of corporate and group travelers. With services that span across hotel reservations, flight bookings, and curated travel logistics, we ensure every journey is as efficient as it is memorable. Our team is dedicated to managing every detail — from airport transfers to venue coordination — making business travel smooth, reliable, and stress-free.          </p>
           {/* New placeholder paragraph */}
           <p className="text-gray-600 mb-8 max-w-md">
-            Our commitment is to provide unparalleled service and curate experiences that leave lasting memories. We believe in crafting journeys that go beyond mere travel, fostering genuine connections and unforgettable adventures.
+Our commitment goes beyond logistics. At Geo Holidays, we strive to create travel experiences that leave a lasting impression. Whether it’s a corporate incentive trip, a global conference, or a carefully planned exhibition, we focus on fostering meaningful connections and delivering exceptional service. Every itinerary we design is guided by a passion for excellence, trust, and a deep understanding of what makes travel truly rewarding.
+
           </p>
 
           {/* Removed EXPLORE MORE button */}

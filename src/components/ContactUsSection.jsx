@@ -3,7 +3,6 @@ import { MapPin, Phone, Mail, Clock } from 'lucide-react';
 
 export const ContactUsSection = () => {
   const sectionRef = useRef(null);
-  // Removed the extraneous 's' character here
   const [hasAnimated, setHasAnimated] = useState(false);
   const [agreedToTerms, setAgreedToTerms] = useState(false); // New state for the checkbox
 
