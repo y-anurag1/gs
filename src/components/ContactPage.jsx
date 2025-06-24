@@ -18,11 +18,13 @@ export const ContactPage = () => {
     return () => clearTimeout(t);
   }, []);
 
+  // Updated formData state with the required fields
   const [formData, setFormData] = useState({
     name: '',
-    email: '',
-    phoneNumber: '',
-    howDidYouFindUs: '',
+    contactNumber: '',
+    city: '',
+    companyName: '',
+    message: '',
   });
 
   const handleChange = (e) => {
@@ -34,7 +36,14 @@ export const ContactPage = () => {
     e.preventDefault();
     console.log('Form Submitted:', formData);
     alert('Thank you for your message! We will get back to you soon.');
-    setFormData({ name: '', email: '', phoneNumber: '', howDidYouFindUs: '' });
+    // Reset the form with the new fields
+    setFormData({
+      name: '',
+      contactNumber: '',
+      city: '',
+      companyName: '',
+      message: '',
+    });
   };
 
   const googleMapsEmbedSrc = "https://www.google.com/maps/embed?pb=!1m18!1m12!1m3!1d3667.6474132184276!2d77.45265502477494!3d23.183065310321002!2m3!1f0!2f0!3f0!3m2!1i1024!2i768!4f13.1!3m3!1m2!1s0x397c43e35217c821%3A0xb864d1694c6e3b8c!2sGeo%20Holidays%2C%20MICE%20and%20corporate%20group%20trave!5e0!3m2!1sen!2sin!4v1750397982685!5m2!1sen!2sin";
@@ -45,7 +54,6 @@ export const ContactPage = () => {
       className={`
         min-h-screen
         font-sans flex flex-col
-
         transform
         transition-all duration-700 ease-out
         ${isMounted
@@ -79,7 +87,9 @@ export const ContactPage = () => {
                 We'd love to hear from you! Whether you have questions, feedback, or need assistance, our team is here to help. Reach out to us using the form below or through our contact details.
               </p>
 
+              {/* MODIFIED FORM SECTION */}
               <form onSubmit={handleSubmit} className="space-y-4">
+                {/* Name */}
                 <div>
                   <input
                     type="text"
@@ -92,44 +102,56 @@ export const ContactPage = () => {
                   />
                 </div>
 
-                <div>
-                  <input
-                    type="email"
-                    name="email"
-                    value={formData.email}
-                    onChange={handleChange}
-                    placeholder="Email"
-                    required
-                    className="w-full px-4 py-3 border border-gray-300 rounded-lg focus:ring-blue-500 focus:border-blue-500 text-sm"
-                  />
-                </div>
-
+                {/* Contact Number */}
                 <div>
                   <input
                     type="tel"
-                    name="phoneNumber"
-                    value={formData.phoneNumber}
+                    name="contactNumber"
+                    value={formData.contactNumber}
                     onChange={handleChange}
-                    placeholder="Phone number *"
+                    placeholder="Contact Number *"
                     required
                     className="w-full px-4 py-3 border border-gray-300 rounded-lg focus:ring-blue-500 focus:border-blue-500 text-sm"
                   />
                 </div>
 
+                {/* City */}
                 <div>
-                  <select
-                    name="howDidYouFindUs"
-                    value={formData.howDidYouFindUs}
+                  <input
+                    type="text"
+                    name="city"
+                    value={formData.city}
                     onChange={handleChange}
-                    className="w-full px-4 py-3 border border-gray-300 rounded-lg bg-white focus:ring-blue-500 focus:border-blue-500 text-sm"
-                  >
-                    <option value="">Select an option</option>
-                    <option value="search_engine">Search Engine</option>
-                    <option value="social_media">Social Media</option>
-                    <option value="referral">Referral</option>
-                    <option value="other">Other</option>
-                  </select>
+                    placeholder="City"
+                    className="w-full px-4 py-3 border border-gray-300 rounded-lg focus:ring-blue-500 focus:border-blue-500 text-sm"
+                  />
                 </div>
+
+                {/* Company Name */}
+                <div>
+                  <input
+                    type="text"
+                    name="companyName"
+                    value={formData.companyName}
+                    onChange={handleChange}
+                    placeholder="Company Name"
+                    className="w-full px-4 py-3 border border-gray-300 rounded-lg focus:ring-blue-500 focus:border-blue-500 text-sm"
+                  />
+                </div>
+
+                {/* Message */}
+                <div>
+                  <textarea
+                    name="message"
+                    value={formData.message}
+                    onChange={handleChange}
+                    placeholder="Message *"
+                    required
+                    rows="4"
+                    className="w-full px-4 py-3 border border-gray-300 rounded-lg focus:ring-blue-500 focus:border-blue-500 text-sm"
+                  ></textarea>
+                </div>
+
 
                 <div className="flex justify-start pt-2">
                   <button
@@ -152,7 +174,7 @@ export const ContactPage = () => {
                   </div>
                 </div>
                 <div className="flex items-center text-gray-700">
-                  
+
                 </div>
                 <div className="flex items-center text-gray-700">
                   <Mail className="w-6 h-6 mr-3 text-gray-900" />
