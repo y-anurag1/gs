@@ -51,7 +51,8 @@ export const ContactUsSection = () => {
     <section
       id="contact-us-section"
       ref={sectionRef}
-      className={`bg-blue-50 py-16 md:py-24 transition-all duration-1000 ease-out
+      // THE ONLY CHANGE IS HERE: bg-blue-50 changed to bg-white
+      className={`bg-white py-16 md:py-24 transition-all duration-1000 ease-out
         ${hasAnimated ? 'translate-y-0 opacity-100' : 'translate-y-20 opacity-0'}
       `}
     >
@@ -67,7 +68,7 @@ export const ContactUsSection = () => {
         {/* Unified Container for Contact Info and Form */}
         <div className="bg-white rounded-3xl shadow-lg p-6 md:p-10 flex flex-col lg:flex-row gap-8 lg:gap-12">
           {/* Contact Info - Reduced items to Address and Opening Hours */}
-          <div className="lg:w-1/2 flex flex-col justify-center">
+          <div className="lg:w-1/2 flex flex-col py-4">
             <h3 className="text-2xl font-bold text-gray-900 mb-6">Get in Touch</h3>
             <p className="text-gray-700 mb-6 leading-relaxed">
               Have questions or need assistance? Reach out to us, and our friendly team will be happy to help.

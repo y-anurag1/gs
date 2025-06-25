@@ -79,38 +79,38 @@ export const StatsSection = () => {
 
 
   return (
-    // Changed background color to match CTA section's gradient
+    // Changed background color to white
     <section
       id="stats-section"
       ref={sectionRef}
-      className="bg-gradient-to-br from-blue-100 to-orange-100 py-12 md:py-20 text-gray-800"
+      className="bg-white py-12 md:py-20 text-gray-800" // Changed background to white, text to gray-800
     >
       <div className="container mx-auto px-4 lg:px-8 text-center">
         {/* Changed heading text from "Strategic Solutions" to "Strategic Experience" */}
-        <h2 className="text-gray-900 text-2xl md:text-3xl lg:text-4xl font-extrabold mb-6">
-          Strategic Experience for<span className="text-orange-500"> MICE</span> Travel
+        <h2 className="text-gray-900 text-2xl md:text-3xl lg:text-4xl font-extrabold mb-6"> {/* Adjusted text color for light background */}
+          Strategic Experience for<span className="text-orange-500"> MICE</span> Travel {/* Adjusted orange shade for light background */}
         </h2>
 
         <div className="grid grid-cols-1 md:grid-cols-3 gap-6 md:gap-8">
-          <div className="bg-white p-3 rounded-xl shadow-lg flex flex-col items-center border border-gray-100">
-            <p className="text-blue-800 text-xl md:text-2xl lg:text-3xl font-bold mb-0.5">
+          <div className="bg-white p-3 rounded-xl shadow-lg flex flex-col items-center border border-gray-100"> {/* Reverted card background and border */}
+            <p className="text-blue-800 text-xl md:text-2xl lg:text-3xl font-bold mb-0.5"> {/* Reverted number color for light background */}
               {yearsExperience}+
             </p>
-            <p className="text-sm md:text-base text-gray-700">Years Experience</p>
+            <p className="text-sm md:text-base text-gray-700">Years Experience</p> {/* Reverted text color for light background */}
           </div>
 
-          <div className="bg-white p-3 rounded-xl shadow-lg flex flex-col items-center border border-gray-100">
-            <p className="text-blue-800 text-xl md:text-2xl lg:text-3xl font-bold mb-0.5">
+          <div className="bg-white p-3 rounded-xl shadow-lg flex flex-col items-center border border-gray-100"> {/* Reverted card background and border */}
+            <p className="text-blue-800 text-xl md:text-2xl lg:text-3xl font-bold mb-0.5"> {/* Reverted number color for light background */}
               {happyTravelers}+
             </p>
-            <p className="text-sm md:text-base text-gray-700">Happy Travelers</p>
+            <p className="text-sm md:text-base text-gray-700">Happy Travelers</p> {/* Reverted text color for light background */}
           </div>
 
-          <div className="bg-white p-3 rounded-xl shadow-lg flex flex-col items-center border border-gray-100">
-            <p className="text-blue-800 text-xl md:text-2xl lg:text-3xl font-bold mb-0.5">
+          <div className="bg-white p-3 rounded-xl shadow-lg flex flex-col items-center border border-gray-100"> {/* Reverted card background and border */}
+            <p className="text-blue-800 text-xl md:text-2xl lg:text-3xl font-bold mb-0.5"> {/* Reverted number color for light background */}
               {iconicDestinations}+
             </p>
-            <p className="text-sm md:text-base text-gray-700">Iconic Destinations</p>
+            <p className="text-sm md:text-base text-gray-700">Iconic Destinations</p> {/* Reverted text color for light background */}
           </div>
         </div>
       </div>

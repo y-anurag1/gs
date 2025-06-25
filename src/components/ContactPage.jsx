@@ -212,9 +212,7 @@ export const ContactPage = () => {
         </div>
 
         {/* Footer Logo - Still within the gradient section */}
-        <div className="flex items-center justify-center mt-16">
-          <img src={logo} alt="GEO HOLIDAYS Logo" className="h-16 w-auto" />
-        </div>
+       
       </div> {/* End of gradient wrapper div */}
 
       {/* CTASection and Footer are now rendered outside the gradient wrapper, directly within the main App div. */}

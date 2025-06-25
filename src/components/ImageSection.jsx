@@ -21,37 +21,45 @@ export const ImageSection = () => {
       `}
     >
       {/*
-        Removed:
-        - rounded-2xl
-        - shadow-xl
-        - bg-white
-        - overflow-hidden (CRITICAL: allows bubbles to extend outside its bounds)
-
-        This div now acts as a transparent, fixed-size container for positioning the image and bubbles.
-        It maintains the `w-full max-w-md h-[480px]` dimensions.
+        This div now acts as a transparent container for positioning the image and bubbles.
+        It has responsive dimensions to make the image smaller on mobile.
       */}
-      <div className="relative w-full max-w-md h-[480px]">
+      <div className="relative w-full
+                  h-[320px] max-w-xs      /* Default (mobile) */
+                  sm:h-[380px] sm:max-w-sm /* Small screens */
+                  lg:h-[480px] lg:max-w-md /* Large screens */
+                  ">
         {/* Actual hero image - It will appear as the main "card" visually */}
         <img
           src={hero}
           alt="Hero Traveler"
-          // Added `rounded-2xl` and `shadow-xl` directly to the image
           className="w-full h-full object-contain object-center rounded-2xl shadow-xl"
         />
 
-        {/* 24/7 Customer Support bubble - positioned top-left, now truly outside the image's "card" bounds */}
-        {/* Adjusted left/top positions more relative to the outer container and image itself */}
-        <div className="absolute -left-12 top-16 bg-white rounded-full shadow-lg px-4 py-2 flex items-center justify-center border border-gray-200 z-10">
-          <Headset className="w-5 h-5 text-blue-600 mr-2" />
-          <span className="text-sm font-bold text-gray-800 mr-1">24/7</span>
-          <span className="text-xs text-gray-600">Customer Support</span>
+        {/* 24/7 Customer Support bubble - positioned top-left, now responsive with smaller size on mobile */}
+        <div className="absolute bg-white rounded-full shadow-lg border border-gray-200 z-10
+                    p-1 flex items-center justify-center    /* Smaller padding on mobile */
+                    -left-4 top-8      /* Default (mobile) positioning */
+                    sm:px-4 sm:py-2     /* Medium padding on small screens */
+                    sm:-left-8 sm:top-12 /* Small screens positioning */
+                    lg:-left-12 lg:top-16 /* Large screens positioning */
+                    ">
+          <Headset className="w-3.5 h-3.5 text-blue-600 mr-0.5 sm:mr-2" /> {/* Smaller icon on mobile */}
+          <span className="text-xs font-bold text-gray-800 mr-0.5 sm:text-sm sm:mr-1">24/7</span> {/* Text size for "24/7" */}
+          <span className="text-[0.65rem] text-gray-600 sm:text-xs">Customer Support</span> {/* Even smaller text on mobile */}
         </div>
 
-        {/* Location tag (New York, USA) - positioned top-right, now truly outside the image's "card" bounds */}
-        {/* Adjusted right/top positions */}
-        <div className="absolute -right-12 top-16 bg-white rounded-full shadow-lg px-4 py-2 flex items-center space-x-2 z-10">
-          <MapPin className="w-4 h-4 text-gray-500" />
-          <span className="text-sm text-gray-700">New York, USA</span>
+        {/* Location tag (New York, USA) - positioned top-right, now responsive with smaller size on mobile */}
+        <div className="absolute bg-white rounded-full shadow-lg border border-gray-200 z-10
+                    p-1 flex items-center space-x-0.5    /* Smaller padding and spacing on mobile */
+                    -right-4 top-8      /* Default (mobile) positioning */
+                    sm:px-4 sm:py-2     /* Medium padding on small screens */
+                    sm:space-x-2        /* Medium spacing on small screens */
+                    sm:-right-8 sm:top-12 /* Small screens positioning */
+                    lg:-right-12 lg:top-16 /* Large screens positioning */
+                    ">
+          <MapPin className="w-3.5 h-3.5 text-gray-500 sm:w-4 sm:h-4" /> {/* Smaller icon on mobile */}
+          <span className="text-[0.7rem] text-gray-700 sm:text-sm">New York, USA</span> {/* Smaller text on mobile */}
         </div>
       </div>
     </div>

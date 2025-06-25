@@ -52,14 +52,14 @@ export const CTASection = () => {
     <section
       id="cta-section"
       ref={sectionRef}
-      // Reverted vertical padding here: py-16 md:py-24 -> py-8 md:py-12
+      // Changed the main section background back to white
       className={`bg-white py-8 md:py-12 px-4 md:px-8 lg:px-12 transition-all duration-1000 ease-out
         ${hasAnimated ? 'translate-y-0 opacity-100' : 'translate-y-20 opacity-0'}
       `}
     >
       <div
-        // Width remains increased (max-w-7xl) as per previous request
-        className="relative bg-gradient-to-br from-blue-100 to-orange-100 p-6 md:p-10 lg:p-12 rounded-xl shadow-lg
+        // Background of the inner card remains a light gray (bg-gray-200)
+        className="relative bg-gray-100 p-6 md:p-10 lg:p-12 rounded-xl shadow-lg
                    max-w-7xl mx-auto overflow-hidden"
       >
         <div className="relative z-10 flex flex-col lg:flex-row items-start justify-between gap-8 lg:gap-32">

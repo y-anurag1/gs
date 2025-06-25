@@ -1,19 +1,35 @@
-import React, { useRef, useState } from 'react';
+import React, { useRef, useState, useEffect } from 'react';
 import logo from '../assets/logo.png';
 
-export const Navbar = ({ currentActiveSection, navigateTo }) => { // Receive navigateTo prop
+export const Navbar = ({ currentActiveSection, navigateTo }) => {
   const navbarRef = useRef(null);
   const [isMobileMenuOpen, setIsMobileMenuOpen] = useState(false);
 
-  // Modified handleScroll to work with page navigation
+  // Close mobile menu if clicked outside
+  useEffect(() => {
+    const handleClickOutside = (event) => {
+      // Check if the click occurred outside the navbar entirely
+      if (navbarRef.current && !navbarRef.current.contains(event.target)) {
+        setIsMobileMenuOpen(false);
+      }
+    };
+
+    if (isMobileMenuOpen) {
+      document.addEventListener('mousedown', handleClickOutside);
+    } else {
+      document.removeEventListener('mousedown', handleClickOutside);
+    }
+
+    return () => {
+      document.removeEventListener('mousedown', handleClickOutside);
+    };
+  }, [isMobileMenuOpen]);
+
   const handleScroll = (id) => {
-    // If the ID is 'contact-us-section', navigate to the contact page
     if (id === 'contact-us-section') {
       navigateTo('contact');
     } else {
-      // Otherwise, ensure we are on the home page and then scroll to the section
       navigateTo('home');
-      // A small delay ensures the home page renders before attempting to scroll
       setTimeout(() => {
         const element = document.getElementById(id);
         const navbarHeight = navbarRef.current ? navbarRef.current.offsetHeight : 0;
@@ -31,9 +47,9 @@ export const Navbar = ({ currentActiveSection, navigateTo }) => { // Receive nav
         } else {
           console.warn(`Could not find element with ID: ${id}.`);
         }
-      }, 100); // Short delay
+      }, 100);
     }
-    setIsMobileMenuOpen(false); // Close mobile menu after click
+    setIsMobileMenuOpen(false); // Close mobile menu after click on a link
   };
 
   const navLinks = [
@@ -118,13 +134,13 @@ export const Navbar = ({ currentActiveSection, navigateTo }) => { // Receive nav
               href={`#${link.id}`}
               onClick={() => handleScroll(link.id)}
               isActive={currentActiveSection === link.id}
-              className="block py-2" // Removed px-4 here, as parent div applies px-8
+              className="block py-2 text-lg" // Increased text size to text-lg for mobile links
             >
               {link.name}
             </NavLink>
           ))}
           {/* Mobile Contact Us Button in dropdown */}
-          <div className="py-2"> {/* Removed px-4 here, as parent div applies px-8 */}
+          <div className="py-2">
             <button
               onClick={() => navigateTo('contact')}
               className="w-full px-8 py-2 rounded-lg bg-blue-800 text-white font-semibold shadow-md hover:bg-blue-700 transition-colors duration-200"
@@ -143,7 +159,7 @@ const NavLink = ({ href, children, onClick, isActive, className = "" }) => (
   <a
     href={href}
     onClick={(e) => { e.preventDefault(); onClick(); }}
-    className={`relative text-base text-gray-800 font-medium transform transition-all duration-200 group
+    className={`relative text-lg text-gray-800 font-medium transform transition-all duration-200 group
       ${isActive ? 'text-blue-600' : 'hover:text-blue-600'}
       ${className}
     `}
