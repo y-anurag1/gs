@@ -1,10 +1,30 @@
 import React, { useRef, useState, useEffect } from 'react';
-import { MapPin, Phone, Mail, Clock } from 'lucide-react';
+import { MapPin, Phone, Mail, Clock, Send } from 'lucide-react'; // Added Send icon for the button
 
 export const ContactUsSection = () => {
   const sectionRef = useRef(null);
   const [hasAnimated, setHasAnimated] = useState(false);
-  const [agreedToTerms, setAgreedToTerms] = useState(false); // New state for the checkbox
+  // agreedToTerms is managed as a separate state, NOT part of formData
+  const [agreedToTerms, setAgreedToTerms] = useState(false);
+
+  // formData contains only the fields intended for the backend payload
+  const [formData, setFormData] = useState({
+    firstName: '',
+    lastName: '',
+    email: '',
+    phoneNumber: '',
+    service: '', // For the select dropdown
+    message: ''
+  });
+
+  // Generic handler for text inputs and select elements
+  const handleChange = (e) => {
+    const { name, value } = e.target;
+    setFormData((prev) => ({
+      ...prev,
+      [name]: value
+    }));
+  };
 
   useEffect(() => {
     const observer = new IntersectionObserver(
@@ -31,19 +51,59 @@ export const ContactUsSection = () => {
     };
   }, [hasAnimated]);
 
-  // Handle checkbox change
+  // Specific handler for the checkbox
   const handleCheckboxChange = (e) => {
     setAgreedToTerms(e.target.checked);
   };
 
-  // Dummy handleSubmit for demonstration (you'd integrate actual form submission logic here)
-  const handleSubmit = (e) => {
+  // Modified handleSubmit to send data without the checkbox state
+  const handleSubmit = async (e) => {
     e.preventDefault();
-    if (agreedToTerms) {
-      alert('Form submitted! (This is a dummy submission)');
-      // Add your actual form submission logic here, e.g., API call
-    } else {
+    if (!agreedToTerms) { // Check the separate `agreedToTerms` state for validation
       alert('Please agree to the Terms of service and Privacy Policy.');
+      return;
+    }
+
+   
+    const payload = { ...formData }; 
+    console.log('Attempting to send payload (EXCLUDING agreedToTerms):', payload);
+
+    // --- IMPORTANT: Replace with your actual backend API endpoint ---
+    const backendEndpoint = '/api/main-contact-form-submission'; 
+    // Example: const backendEndpoint = 'https://your-backend.com/api/contact'; 
+
+    try {
+      const response = await fetch(backendEndpoint, {
+        method: 'POST',
+        headers: {
+          'Content-Type': 'application/json',
+          // Add any other required headers (e.g., Authorization)
+        },
+        body: JSON.stringify(payload), // Send only the formData content
+      });
+
+      if (response.ok) {
+        const result = await response.json();
+        console.log('Form submission successful:', result);
+        alert('Thank you for your message! We will get back to you soon.');
+        // Reset form fields after successful submission
+        setFormData({
+          firstName: '',
+          lastName: '',
+          email: '',
+          phoneNumber: '',
+          service: '',
+          message: ''
+        });
+        setAgreedToTerms(false); 
+      } else {
+        const errorData = await response.json();
+        console.error('Form submission failed:', response.status, errorData);
+        alert(`Failed to send message: ${errorData.message || 'Server error'}. Please try again.`);
+      }
+    } catch (error) {
+      console.error('Network or unexpected error during form submission:', error);
+      alert('An error occurred. Please check your internet connection or try again later.');
     }
   };
 
@@ -51,7 +111,6 @@ export const ContactUsSection = () => {
     <section
       id="contact-us-section"
       ref={sectionRef}
-      // THE ONLY CHANGE IS HERE: bg-blue-50 changed to bg-white
       className={`bg-white py-16 md:py-24 transition-all duration-1000 ease-out
         ${hasAnimated ? 'translate-y-0 opacity-100' : 'translate-y-20 opacity-0'}
       `}
@@ -83,7 +142,6 @@ export const ContactUsSection = () => {
                   </address>
                 </div>
               </div>
-              {/* Removed Phone and Mail sections from here */}
               <div className="flex items-start text-gray-700">
                 <Clock className="w-6 h-6 text-blue-600 mr-4 flex-shrink-0" />
                 <div>
@@ -100,21 +158,30 @@ export const ContactUsSection = () => {
             <h3 className="text-3xl font-extrabold text-gray-900 mb-2">Send us a message!</h3>
             <p className="text-gray-600 mb-6">We usually respond within 24 hours.</p>
 
-            <form onSubmit={handleSubmit} className="space-y-4"> {/* Added onSubmit handler */}
+            <form onSubmit={handleSubmit} className="space-y-4">
               <div className="grid grid-cols-1 sm:grid-cols-2 gap-4">
                 <input
                   type="text"
+                  name="firstName"
+                  value={formData.firstName}
+                  onChange={handleChange}
                   placeholder="First name"
                   className="w-full px-4 py-3 rounded-lg border border-gray-300 focus:ring-2 focus:ring-blue-500 focus:border-transparent transition-colors duration-200"
                 />
                 <input
                   type="text"
+                  name="lastName"
+                  value={formData.lastName}
+                  onChange={handleChange}
                   placeholder="Last name"
                   className="w-full px-4 py-3 rounded-lg border border-gray-300 focus:ring-2 focus:ring-blue-500 focus:border-transparent transition-colors duration-200"
                 />
               </div>
               <input
                 type="email"
+                name="email"
+                value={formData.email}
+                onChange={handleChange}
                 placeholder="Your email"
                 className="w-full px-4 py-3 rounded-lg border border-gray-300 focus:ring-2 focus:ring-blue-500 focus:border-transparent transition-colors duration-200"
               />
@@ -123,9 +190,13 @@ export const ContactUsSection = () => {
                   type="text"
                   placeholder="+91"
                   className="w-20 px-4 py-3 rounded-lg border border-gray-300 focus:ring-2 focus:ring-blue-500 focus:border-transparent transition-colors duration-200 text-center"
+                  readOnly
                 />
                 <input
                   type="tel"
+                  name="phoneNumber"
+                  value={formData.phoneNumber}
+                  onChange={handleChange}
                   placeholder="Phone number"
                   className="flex-grow px-4 py-3 rounded-lg border border-gray-300 focus:ring-2 focus:ring-blue-500 focus:border-transparent transition-colors duration-200"
                 />
@@ -134,6 +205,9 @@ export const ContactUsSection = () => {
               {/* Custom Select Service Dropdown */}
               <div>
                 <select
+                  name="service"
+                  value={formData.service}
+                  onChange={handleChange}
                   className="w-full px-4 py-3 rounded-lg border border-gray-300 bg-white text-gray-700 focus:ring-2 focus:ring-blue-500 focus:border-transparent transition-colors duration-200 appearance-none"
                   style={{
                     backgroundImage: `url("data:image/svg+xml,%3csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 16 16'%3e%3cpath fill='none' stroke='%23333' stroke-linecap='round' stroke-linejoin='round' stroke-width='2' d='M2 5l6 6 6-6'/%3e%3c/svg%3e")`,
@@ -150,6 +224,9 @@ export const ContactUsSection = () => {
               </div>
 
               <textarea
+                name="message"
+                value={formData.message}
+                onChange={handleChange}
                 placeholder="Your Message"
                 rows="4"
                 className="w-full px-4 py-3 rounded-lg border border-gray-300 focus:ring-2 focus:ring-blue-500 focus:border-transparent transition-colors duration-200"
@@ -160,8 +237,8 @@ export const ContactUsSection = () => {
                 <input
                   type="checkbox"
                   id="agreeToTerms"
-                  checked={agreedToTerms}
-                  onChange={handleCheckboxChange}
+                  checked={agreedToTerms} 
+                  onChange={handleCheckboxChange} 
                   className="h-4 w-4 text-blue-600 focus:ring-blue-500 border-gray-300 rounded"
                 />
                 <label htmlFor="agreeToTerms" className="ml-2 block text-sm text-gray-900">
@@ -173,12 +250,13 @@ export const ContactUsSection = () => {
 
               <button
                 type="submit"
-                disabled={!agreedToTerms} // Button is disabled if not agreedToTerms
-                className={`w-full px-8 py-3 rounded-lg text-white font-semibold shadow-lg transition-colors duration-200
+                disabled={!agreedToTerms} 
+                className={`w-full px-8 py-3 rounded-lg text-white font-semibold shadow-lg transition-colors duration-200 flex items-center justify-center
                   ${agreedToTerms ? 'bg-blue-800 hover:bg-blue-700' : 'bg-gray-400 cursor-not-allowed'}
                 `}
               >
                 Submit
+                <Send className="ml-2 w-5 h-5" /> {/* Added Send icon */}
               </button>
             </form>
           </div>
